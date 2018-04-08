@@ -10,24 +10,21 @@ import Data.Text.Lazy
 
 import Analysis
 import Types
-import qualified Data.Map as M
 
 -- Todo: User reader
-runAnalysis :: Text -> Maybe (Behavior, Analysis)
-runAnalysis str = analyzeLine (M.keys knowledgeBase) knowledgeBase str
+runAnalysis :: Text -> Maybe Knowledge
+runAnalysis str = analyzeLine knowledgeBase str
 
 -- Todo: Use reader
-analyzeLine :: [Behavior] -> KnowledgeBase -> Text-> Maybe (Behavior, Analysis)
-analyzeLine [] _  _ = Nothing
-analyzeLine (b@Behavior{..}:xs) base str =
-    if not (bErrorText `isInfixOf` str)
-     then analyzeLine xs base str
-     else case M.lookup b base of
-        Just a -> Just (b, a)
-        Nothing -> Nothing
+analyzeLine :: KnowledgeBase -> Text-> Maybe Knowledge
+analyzeLine [] _ = Nothing
+analyzeLine (k@Knowledge{..}:xs) str =
+    if not (kErrorText `isInfixOf` str)
+     then analyzeLine xs str
+     else Just k
 
 -- | Sort known issues by priority
-sortKnownIssue :: [(Behavior, Analysis)] -> [(Behavior, Analysis)]
+sortKnownIssue :: [Knowledge] -> [Knowledge]
 sortKnownIssue [] = []
 sortKnownIssue (x:xs) = sortKnownIssue gteq ++ [x] ++ sortKnownIssue lt
     where
