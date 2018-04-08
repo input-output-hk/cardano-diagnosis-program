@@ -12,7 +12,7 @@ import Data.Attoparsec.Text
 
 import Parsers
 import Types (KnowledgeBase)
-import KnowledgebaseParser.Parser (parseKnowLedgeBase)
+import KnowledgebaseParser.CSVParser (parseKnowLedgeBase)
 
 import Data.Monoid ((<>))
 

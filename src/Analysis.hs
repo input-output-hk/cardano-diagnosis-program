@@ -1,5 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
+-- | Deprecated file, will delete soon
 module Analysis where
 
 import Types

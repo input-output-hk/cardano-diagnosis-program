@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module KnowledgebaseParser.Parser where
+module KnowledgebaseParser.CSVParser where
 
 import Control.Applicative
 
