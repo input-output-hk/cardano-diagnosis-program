@@ -1,0 +1,6 @@
+"returned empty list","NetworkError","Network error","Unknown"
+"useless for the following reason","TimeSync","Time out of sync","Sync the local clock"
+"malformed","DBError","Block data is corrupted","Delete content of DB-1.0"
+"error","Error","Misc","Unknown"
+"No such file or directory","FileNotFound","File missing or wrong username","Reinstall Daedalus / Change username to latin-characters"
+"resource exhausted (No space left on device)","ShortStorage","Not enough space on hard drive","Create more space"

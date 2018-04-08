@@ -25,6 +25,7 @@ dependencies:
 - containers
 - text
 - time
+- attoparsec
 
 library:
   source-dirs: src

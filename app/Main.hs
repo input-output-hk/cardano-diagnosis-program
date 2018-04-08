@@ -13,9 +13,13 @@ import Data.List (nub)
 logFile :: FilePath
 logFile = "./logs/node.pub"
 
+knowledgeBaseFile :: FilePath
+knowledgeBaseFile = "./knowledgebase/knowledge.csv"
+
 main :: IO ()
 main = do
     file <- LBS.readFile logFile
+
     let eachLine = (lines $ decodeUtf8 file)
         knownErrors   = nub $ sortKnownIssue $ filterMaybe $ map runAnalysis eachLine
     mapM_ print knownErrors
