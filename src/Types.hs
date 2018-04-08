@@ -5,14 +5,14 @@ module Types where
 import Data.Text (Text)
 
 data ErrorCode =
-    FileNotFound 
+    Error
+  | Unknown
+  | ConnectionRefused
+  | NetworkError
+  | FileNotFound 
   | TimeSync
   | DBError
   | ShortStorage
-  | NetworkError
-  | ConnectionRefused
-  | Error
-  | Unknown
   deriving (Eq, Ord, Show)
 
 data Knowledge =
