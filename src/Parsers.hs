@@ -10,16 +10,12 @@ import Data.Text
 
 import Types
 
--- | Run analysis on the given text
-runAnalysis :: KnowledgeBase -> Text -> Maybe Knowledge
-runAnalysis kb str = analyzeLine kb str
-
--- | Try to match the text with knowledge base
-analyzeLine :: KnowledgeBase -> Text-> Maybe Knowledge
-analyzeLine [] _ = Nothing
-analyzeLine (k@Knowledge{..}:xs) str =
+-- | Run analysis on given line
+runAnalysis :: KnowledgeBase -> Text-> Maybe Knowledge
+runAnalysis [] _ = Nothing
+runAnalysis (k@Knowledge{..}:xs) str =
     if not (kErrorText `isInfixOf` str)
-     then analyzeLine xs str
+     then runAnalysis xs str
      else Just k
 
 -- | Sort known issues by priority
