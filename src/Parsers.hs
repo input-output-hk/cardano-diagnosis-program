@@ -8,12 +8,11 @@ module Parsers (
 
 import Data.Text
 
-import Analysis
 import Types
 
 -- | Run analysis on the given text
-runAnalysis :: Text -> Maybe Knowledge
-runAnalysis str = analyzeLine knowledgeBase str
+runAnalysis :: KnowledgeBase -> Text -> Maybe Knowledge
+runAnalysis kb str = analyzeLine kb str
 
 -- | Try to match the text with knowledge base
 analyzeLine :: KnowledgeBase -> Text-> Maybe Knowledge

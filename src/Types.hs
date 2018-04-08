@@ -21,6 +21,9 @@ data Knowledge =
   ,  kErrorCode :: !ErrorCode
   ,  kProblem   :: !Text
   ,  kSolution  :: !Text
-  } deriving (Eq, Ord, Show)
+  } deriving (Eq, Show)
 
 type KnowledgeBase = [Knowledge]
+
+instance Ord Knowledge where
+  k1 <= k2 = kErrorCode k1 <= kErrorCode k2
