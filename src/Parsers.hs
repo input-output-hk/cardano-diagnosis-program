@@ -6,7 +6,7 @@ module Parsers (
     , sortKnownIssue
     ) where
 
-import Data.Text.Lazy
+import Data.Text
 
 import Analysis
 import Types

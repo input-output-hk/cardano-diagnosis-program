@@ -2,7 +2,7 @@
 
 module Types where
 
-import Data.Text.Lazy (Text)
+import Data.Text (Text)
 
 data ErrorCode =
     FileNotFound 
