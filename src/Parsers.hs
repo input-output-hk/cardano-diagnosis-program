@@ -11,11 +11,11 @@ import Data.Text.Lazy
 import Analysis
 import Types
 
--- Todo: User reader
+-- | Run analysis on the given text
 runAnalysis :: Text -> Maybe Knowledge
 runAnalysis str = analyzeLine knowledgeBase str
 
--- Todo: Use reader
+-- | Try to match the text with knowledge base
 analyzeLine :: KnowledgeBase -> Text-> Maybe Knowledge
 analyzeLine [] _ = Nothing
 analyzeLine (k@Knowledge{..}:xs) str =

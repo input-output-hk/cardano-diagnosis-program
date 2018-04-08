@@ -20,7 +20,7 @@ data Knowledge =
      kErrorText :: !Text
   ,  kErrorCode :: !ErrorCode
   ,  kProblem   :: !Text
-  ,  kSolution  :: ![Text]
+  ,  kSolution  :: !Text
   } deriving (Eq, Ord, Show)
 
 type KnowledgeBase = [Knowledge]
