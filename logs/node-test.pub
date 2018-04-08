@@ -1,0 +1,7 @@
+[92m[node.worker.us:DEBUG:ThreadId 562] [0m[2018-04-03 00:25:39.40 UTC] Checking for update...
+[94m[node.plugin:INFO:ThreadId 580] [0m[2018-04-03 00:25:39.40 UTC] Production mode for API: True
+[94m[node.plugin:INFO:ThreadId 580] [0m[2018-04-03 00:25:39.40 UTC] Transaction submission disabled: False
+[94m[node.plugin:INFO:ThreadId 580] [0m[2018-04-03 00:25:39.40 UTC] Wallet Web API has STARTED!
+[92m[acidcleanup:DEBUG:ThreadId 582] [0m[2018-04-03 00:25:39.40 UTC] Starting cleanup
+[95m[node.worker.slotting.slotting:NOTICE:ThreadId 574] [0m[2018-04-03 00:25:39.41 UTC] New slot has just started: 4802nd slot of 38th epoch
+[92m[node.worker.slotting.slotting:DEBUG:ThreadId 574] [0m[2018-04-03 00:25:39.41 UTC] Waiting for 11589289mcs before new slot
