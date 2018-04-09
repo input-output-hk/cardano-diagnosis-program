@@ -16,9 +16,9 @@ import qualified Data.Text.Lazy.Encoding       as LT
 
 import           Data.Attoparsec.Text.Lazy
 
+import           Control.Monad.Reader
 import           Data.Map                      (Map)
 import qualified Data.Map                      as Map
-import Control.Monad.Reader
 
 import           Classifier                    (extractIssuesFromLogs)
 import           KnowledgebaseParser.CSVParser (parseKnowLedgeBase)

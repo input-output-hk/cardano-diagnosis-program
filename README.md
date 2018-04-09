@@ -30,7 +30,7 @@ WIP
 - [x] Use vector for efficiency
 - [x] Use reader monad
 - [x] Test on windows, mac
-- [ ] Provide more descriptive solution
+- [x] Provide more descriptive solution
 - [ ] Catch suspcious lines and report them
 - [ ] Analyze Daedalus log file
 - [ ] Count the occurance of errors

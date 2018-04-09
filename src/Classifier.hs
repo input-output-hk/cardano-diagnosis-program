@@ -5,19 +5,19 @@ module Classifier (
     , extractIssuesFromLogs
     ) where
 
-import Data.List (sort)
+import           Data.List               (sort)
 
-import qualified Data.Text.Lazy as LT
-import qualified Data.Text.Lazy.Encoding       as LT
+import qualified Data.Text.Lazy          as LT
+import qualified Data.Text.Lazy.Encoding as LT
 
-import Data.ByteString.Lazy as LBS
+import           Data.ByteString.Lazy    as LBS
 
-import Data.Vector (Vector)
-import qualified Data.Vector as V
+import           Data.Vector             (Vector)
+import qualified Data.Vector             as V
 
-import Control.Monad.Reader
+import           Control.Monad.Reader
 
-import           Types (Knowledge(..), KnowledgeBase)
+import           Types                   (Knowledge (..), KnowledgeBase)
 
 extractIssuesFromLogs :: [LBS.ByteString] -> Reader KnowledgeBase [Knowledge]
 extractIssuesFromLogs logs = filterLogs <$> mapM runClassifiers logs
@@ -42,7 +42,7 @@ analyzeLine (k@Knowledge{..}:xs) str =
 -- | Filter out Nothing from list of Maybe a
 vFilterMaybe :: Vector (Maybe a) -> Vector a
 vFilterMaybe = V.foldr (\x acc -> case x of
-                          Nothing -> acc
+                          Nothing  -> acc
                           Just ele -> ele `V.cons` acc) V.empty
 
 -- | Vector version of nub
