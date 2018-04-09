@@ -13,10 +13,10 @@ import Data.ByteString.Lazy as LBS
 import           Types (Knowledge(..), KnowledgeBase)
 
 -- | Run analysis on given file
-runClassifiers :: KnowledgeBase -> LBS.ByteString -> [Maybe Knowledge]
+runClassifiers :: KnowledgeBase -> LBS.ByteString -> [Knowledge]
 runClassifiers kbase logfile = 
     let eachLine = LT.lines $ LT.decodeUtf8 logfile -- this is an array which is way too slow
-    in Prelude.map (analyzeLine kbase) eachLine
+    in filterMaybe $ Prelude.map (analyzeLine kbase) eachLine
 
 -- | Run analysis on given line
 analyzeLine :: KnowledgeBase -> LT.Text -> Maybe Knowledge
@@ -29,7 +29,14 @@ analyzeLine (k@Knowledge{..}:xs) str =
 -- | Sort known issues by priority
 sortKnownIssue :: [Knowledge] -> [Knowledge]
 sortKnownIssue [] = []
-sortKnownIssue (x:xs) = sortKnownIssue gteq ++ [x] ++ sortKnownIssue lt
+sortKnownIssue (x:xs) = sortKnownIssue gteq ++ (x:sortKnownIssue lt)
     where
         lt = Prelude.filter (< x) xs
         gteq = Prelude.filter (>= x) xs
+
+-- | Filter out Nothing from list of Maybe a
+filterMaybe :: [Maybe a] -> [a]
+filterMaybe [] = []
+filterMaybe (x:xs) = case x of
+                Nothing  -> filterMaybe xs
+                (Just a) -> a :filterMaybe xs

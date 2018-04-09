@@ -17,7 +17,7 @@ import qualified Codec.Archive.Zip             as Zip
 
 import           Data.Attoparsec.Text.Lazy
 
-import           Data.List                     (nub)
+import           Data.List                     (nub, sort)
 import           Data.Map                      (Map)
 import qualified Data.Map                      as Map
 
@@ -35,7 +35,7 @@ zLogFile :: FilePath
 zLogFile = "./logs/pub.zip"
 
 file2Lookup :: [FilePath]
-file2Lookup = ["pub/node.pub"]
+file2Lookup = ["pub/node.pub", "pub/node.pub.0", "pub/node.pub.1"]
 
 -- | Read knowledgebase csv file
 setupKB :: HasCallStack => FilePath -> IO KnowledgeBase
@@ -45,13 +45,6 @@ setupKB path = do
     case eitherResult kb of
         Left e    -> error $ "File not found" <> e-- Ugh need to do something better
         Right res -> return res
-
--- | Filter out Nothing from list of Maybe a
-filterMaybe :: [Maybe a] -> [a]
-filterMaybe [] = []
-filterMaybe (x:xs) = case x of
-                Nothing  -> filterMaybe xs
-                (Just a) -> a :filterMaybe xs
 
 -- | Read zip file
 readZip :: HasCallStack => LBS.ByteString -> Either String (Map FilePath LBS.ByteString)
@@ -86,5 +79,5 @@ main = do
     zipMap <- readZippedPub zLogFile                        -- Read File
     let extractedLogs = extractLogs zipMap file2Lookup
         extractedKnownErrors = map (runClassifiers kbase) extractedLogs
-        filteredErrors  = nub $ sortKnownIssue $ filterMaybe (concat extractedKnownErrors)
+        filteredErrors  = nub $ sort $ concat extractedKnownErrors
     mapM_ print filteredErrors
