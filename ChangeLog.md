@@ -3,8 +3,10 @@
 ## Unreleased changes
 
 ## Todo
-Work with zip file
-Catch suspcious lines
-Analyze Daedalus file
-Count
-Which mean I need new data type, diagnosis
+
+- [ ] Read zip file
+- [ ] Catch suspcious lines
+- [ ] Analyze Daedalus file
+- [ ] Count the occurance of errors
+- [ ] Pretty print the diagnosis
+- [ ] Create test cases
