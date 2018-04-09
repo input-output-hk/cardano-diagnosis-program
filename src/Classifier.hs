@@ -1,21 +1,30 @@
 {-# LANGUAGE RecordWildCards #-}
 
 module Classifier (
-      runClassifier
+      runClassifiers
     , sortKnownIssue
     ) where
 
 import qualified Data.Text.Lazy as LT
+import qualified Data.Text.Lazy.Encoding       as LT
+
+import Data.ByteString.Lazy as LBS
 
 import           Types (Knowledge(..), KnowledgeBase)
 
+-- | Run analysis on given file
+runClassifiers :: KnowledgeBase -> LBS.ByteString -> [Maybe Knowledge]
+runClassifiers kbase logfile = 
+    let eachLine = LT.lines $ LT.decodeUtf8 logfile -- this is an array which is way too slow
+    in Prelude.map (analyzeLine kbase) eachLine
+
 -- | Run analysis on given line
-runClassifier :: KnowledgeBase -> LT.Text -> Maybe Knowledge
-runClassifier [] _ = Nothing
-runClassifier (k@Knowledge{..}:xs) str =
+analyzeLine :: KnowledgeBase -> LT.Text -> Maybe Knowledge
+analyzeLine [] _ = Nothing
+analyzeLine (k@Knowledge{..}:xs) str =
     if kErrorText `LT.isInfixOf` str
      then Just k
-     else runClassifier xs str
+     else analyzeLine xs str
 
 -- | Sort known issues by priority
 sortKnownIssue :: [Knowledge] -> [Knowledge]

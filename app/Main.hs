@@ -3,8 +3,10 @@
 
 module Main where
 
+import           Data.Maybe                    (fromMaybe)
 import           Data.Monoid                   ((<>))
 import           GHC.Stack                     (HasCallStack)
+
 
 import qualified Data.ByteString.Lazy          as LBS
 
@@ -19,7 +21,7 @@ import           Data.List                     (nub)
 import           Data.Map                      (Map)
 import qualified Data.Map                      as Map
 
-import           Classifier                    (runClassifier, sortKnownIssue)
+import           Classifier                    (runClassifiers, sortKnownIssue)
 import           KnowledgebaseParser.CSVParser (parseKnowLedgeBase)
 import           Types                         (KnowledgeBase)
 
@@ -31,6 +33,9 @@ knowledgeBaseFile = "./knowledgebase/knowledge.csv"
 
 zLogFile :: FilePath
 zLogFile = "./logs/pub.zip"
+
+file2Lookup :: [FilePath]
+file2Lookup = ["pub/node.pub"]
 
 -- | Read knowledgebase csv file
 setupKB :: HasCallStack => FilePath -> IO KnowledgeBase
@@ -60,21 +65,26 @@ readZip rawzip = case Zip.toArchiveOrFail rawzip of
     handleEntry entry = (Zip.eRelativePath entry, Zip.fromEntry entry)
 
 -- | Read zip file and return files that will be analyzed
-readZippedPub :: HasCallStack => FilePath -> IO LBS.ByteString
+readZippedPub :: HasCallStack => FilePath -> IO (Map FilePath LBS.ByteString)
 readZippedPub path = do
     file <- LBS.readFile path
     let zipMap = readZip file
     case zipMap of
-        Left e -> error $ "Error occured: " <> e
-        Right fileMap -> case Map.lookup "pub/node.pub" fileMap of -- just take cardano.log
-            Nothing -> error "Cannot find node.pub file, please make sure you've chosen right file"
-            Just node -> return node
+        Left e        -> error $ "Error occured: " <> e
+        Right fileMap -> return fileMap
+
+extractLogs :: Map FilePath LBS.ByteString -> [FilePath] -> [LBS.ByteString]
+extractLogs zipmap = map (extractLog zipmap)
+    where
+        extractLog :: Map FilePath LBS.ByteString -> FilePath -> LBS.ByteString
+        extractLog zipmaps path = fromMaybe (error $ "couldn't find the file: " <> path)
+                                            (Map.lookup path zipmaps)
 
 main :: IO ()
 main = do
     kbase <- setupKB knowledgeBaseFile                       -- Read & create knowledge base
-    nodeLog <- LBS.readFile logFile                        -- Read File
-    let eachLine        = LT.lines $ LT.decodeUtf8 nodeLog
-        knownErrors     = map (runClassifier kbase) eachLine -- Parse file
-        filteredErrors  = nub $ sortKnownIssue $ filterMaybe knownErrors
+    zipMap <- readZippedPub zLogFile                        -- Read File
+    let extractedLogs = extractLogs zipMap file2Lookup
+        extractedKnownErrors = map (runClassifiers kbase) extractedLogs
+        filteredErrors  = nub $ sortKnownIssue $ filterMaybe (concat extractedKnownErrors)
     mapM_ print filteredErrors
