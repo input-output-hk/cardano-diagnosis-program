@@ -1,4 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
 
 module Parsers (
@@ -6,15 +5,15 @@ module Parsers (
     , sortKnownIssue
     ) where
 
-import Data.Text.Lazy
+import qualified Data.Text.Lazy as LT
 
-import Types
+import           Types
 
 -- | Run analysis on given line
-runAnalysis :: KnowledgeBase -> Text -> Maybe Knowledge
+runAnalysis :: KnowledgeBase -> LT.Text -> Maybe Knowledge
 runAnalysis [] _ = Nothing
 runAnalysis (k@Knowledge{..}:xs) str =
-    if kErrorText `isInfixOf` str
+    if kErrorText `LT.isInfixOf` str
      then Just k
      else runAnalysis xs str
 

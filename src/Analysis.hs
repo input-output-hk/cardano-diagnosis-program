@@ -3,9 +3,8 @@
 -- | Deprecated file, will delete soon
 module Analysis where
 
-import Types
+import           Types
 
--- Todo: use csv and parse them
 k1 :: Knowledge
 k1 = Knowledge "returned empty list" NetworkError "Network error" "Unknown"
 
@@ -19,7 +18,7 @@ k4 :: Knowledge
 k4 = Knowledge "error" Error "Misc" "Unknown"
 
 k5 :: Knowledge
-k5 = Knowledge "No such file or directory" FileNotFound 
+k5 = Knowledge "No such file or directory" FileNotFound
             "File missing or wrong username" "Reinstall Daedalus / Change username to latin-characters"
 
 k6 :: Knowledge

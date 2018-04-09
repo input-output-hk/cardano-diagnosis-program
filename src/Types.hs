@@ -1,13 +1,17 @@
-module Types where
+module Types (
+   ErrorCode (..)
+ , Knowledge (..)
+ , KnowledgeBase
+) where
 
-import Data.Text.Lazy (Text)
+import qualified Data.Text.Lazy as LT
 
 data ErrorCode =
     Error
   | Unknown
   | ConnectionRefused
   | NetworkError
-  | FileNotFound 
+  | FileNotFound
   | TimeSync
   | DBError
   | ShortStorage
@@ -15,10 +19,10 @@ data ErrorCode =
 
 data Knowledge =
   Knowledge {
-     kErrorText :: !Text
+     kErrorText :: !LT.Text
   ,  kErrorCode :: !ErrorCode
-  ,  kProblem   :: !Text
-  ,  kSolution  :: !Text
+  ,  kProblem   :: !LT.Text
+  ,  kSolution  :: !LT.Text
   } deriving (Eq, Show)
 
 type KnowledgeBase = [Knowledge]

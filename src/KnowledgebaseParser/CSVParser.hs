@@ -1,19 +1,21 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module KnowledgebaseParser.CSVParser where
+module KnowledgebaseParser.CSVParser (
+ parseKnowLedgeBase
+) where
 
-import Control.Applicative
+import           Control.Applicative
 
-import Data.Attoparsec.Text.Lazy
+import           Data.Attoparsec.Text.Lazy
 
-import Data.Text.Lazy (Text)
-import qualified Data.Text.Lazy as LT
+import qualified Data.Text.Lazy            as LT
 
-import Types
+import           Types
 
-import Prelude hiding (takeWhile)
+import           Prelude                   hiding (takeWhile)
 
-insideQuotes :: Parser Text
+-- | Take any string that is inside quotes
+insideQuotes :: Parser LT.Text
 insideQuotes =
    LT.append <$> (LT.fromStrict <$> takeWhile (/= '"'))
             <*> (LT.concat <$> many (LT.cons <$> dquotes <*> insideQuotes))
@@ -23,13 +25,15 @@ insideQuotes =
          string "\"\"" >> return '"'
          <?> "paired double quotes"
 
-quotedField :: Parser Text
+-- | Parse quoted field
+quotedField :: Parser LT.Text
 quotedField =
    char '"' *> insideQuotes <* char '"'
    <?> "quoted field"
 
+-- | Parse Errorcode
 parseErrorCode :: Parser ErrorCode
-parseErrorCode = 
+parseErrorCode =
         (string "FileNotFound"      >> return FileNotFound)
     <|> (string "TimeSync"          >> return TimeSync)
     <|> (string "DBError"           >> return DBError)
@@ -39,6 +43,7 @@ parseErrorCode =
     <|> (string "Error"             >> return Error)
     <|> (string "Unknown"           >> return Unknown)
 
+-- | Parse knowledge
 parseKnowledge :: Parser Knowledge
 parseKnowledge = do
     e <- quotedField
@@ -52,5 +57,6 @@ parseKnowledge = do
     s <- quotedField
     return $ Knowledge e c p s
 
+-- | Run parser an create knowledgebase
 parseKnowLedgeBase :: Parser KnowledgeBase
 parseKnowLedgeBase = many $ parseKnowledge <* endOfLine
