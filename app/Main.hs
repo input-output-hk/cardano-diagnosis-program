@@ -21,7 +21,7 @@ import           Data.List                     (nub, sort)
 import           Data.Map                      (Map)
 import qualified Data.Map                      as Map
 
-import           Classifier                    (runClassifiers, sortKnownIssue)
+import           Classifier                    (extractIssuesFromLogs)
 import           KnowledgebaseParser.CSVParser (parseKnowLedgeBase)
 import           Types                         (KnowledgeBase)
 
@@ -78,6 +78,5 @@ main = do
     kbase <- setupKB knowledgeBaseFile                       -- Read & create knowledge base
     zipMap <- readZippedPub zLogFile                        -- Read File
     let extractedLogs = extractLogs zipMap file2Lookup
-        extractedKnownErrors = map (runClassifiers kbase) extractedLogs
-        filteredErrors  = nub $ sort $ concat extractedKnownErrors
-    mapM_ print filteredErrors
+        filteredKnownErrors = extractIssuesFromLogs kbase extractedLogs
+    mapM_ print filteredKnownErrors

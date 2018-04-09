@@ -27,6 +27,7 @@ dependencies:
 - time
 - attoparsec
 - zip-archive
+- vector
 
 library:
   source-dirs: src
