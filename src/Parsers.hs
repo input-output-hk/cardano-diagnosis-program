@@ -6,17 +6,17 @@ module Parsers (
     , sortKnownIssue
     ) where
 
-import Data.Text
+import Data.Text.Lazy
 
 import Types
 
 -- | Run analysis on given line
-runAnalysis :: KnowledgeBase -> Text-> Maybe Knowledge
+runAnalysis :: KnowledgeBase -> Text -> Maybe Knowledge
 runAnalysis [] _ = Nothing
 runAnalysis (k@Knowledge{..}:xs) str =
-    if not (kErrorText `isInfixOf` str)
-     then runAnalysis xs str
-     else Just k
+    if kErrorText `isInfixOf` str
+     then Just k
+     else runAnalysis xs str
 
 -- | Sort known issues by priority
 sortKnownIssue :: [Knowledge] -> [Knowledge]

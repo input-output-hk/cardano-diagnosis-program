@@ -1,8 +1,6 @@
-{-# LANGUAGE OverloadedStrings #-}
-
 module Types where
 
-import Data.Text (Text)
+import Data.Text.Lazy (Text)
 
 data ErrorCode =
     Error

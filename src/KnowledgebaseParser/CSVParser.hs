@@ -6,8 +6,8 @@ import Control.Applicative
 
 import Data.Attoparsec.Text.Lazy
 
-import Data.Text (Text)
-import qualified Data.Text as T
+import Data.Text.Lazy (Text)
+import qualified Data.Text.Lazy as LT
 
 import Types
 
@@ -15,8 +15,8 @@ import Prelude hiding (takeWhile)
 
 insideQuotes :: Parser Text
 insideQuotes =
-   T.append <$> takeWhile (/= '"')
-            <*> (T.concat <$> many (T.cons <$> dquotes <*> insideQuotes))
+   LT.append <$> (LT.fromStrict <$> takeWhile (/= '"'))
+            <*> (LT.concat <$> many (LT.cons <$> dquotes <*> insideQuotes))
    <?> "inside of double quotes"
    where
       dquotes =

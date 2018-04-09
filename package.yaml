@@ -26,6 +26,7 @@ dependencies:
 - text
 - time
 - attoparsec
+- zip-archive
 
 library:
   source-dirs: src
