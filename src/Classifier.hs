@@ -29,7 +29,7 @@ runClassifiers :: LBS.ByteString -> Reader KnowledgeBase (Vector Knowledge)
 runClassifiers logfile = do
     kbase <- ask
     let eachLine = V.fromList $ LT.lines $ LT.decodeUtf8 logfile -- this is an array which is way too slow
-    return $ filterMaybe $ V.map (analyzeLine kbase) eachLine
+    return $ vFilterMaybe $ V.map (analyzeLine kbase) eachLine
 
 -- | Run analysis on given line
 analyzeLine :: KnowledgeBase -> LT.Text -> Maybe Knowledge
@@ -40,8 +40,8 @@ analyzeLine (k@Knowledge{..}:xs) str =
      else analyzeLine xs str
 
 -- | Filter out Nothing from list of Maybe a
-filterMaybe :: Vector (Maybe a) -> Vector a
-filterMaybe = V.foldr (\x acc -> case x of
+vFilterMaybe :: Vector (Maybe a) -> Vector a
+vFilterMaybe = V.foldr (\x acc -> case x of
                           Nothing -> acc
                           Just ele -> ele `V.cons` acc) V.empty
 

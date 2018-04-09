@@ -26,11 +26,11 @@ WIP
 
 - [x] Read zip file
 - [x] Use vector for efficiency
-- [ ] Use reader
-- [ ] Use regex to catch errors more nicely
+- [x] Use reader
 - [ ] Provide more descriptive solution
 - [ ] Catch suspcious lines and report them
 - [ ] Analyze Daedalus log file
 - [ ] Count the occurance of errors
 - [ ] Pretty print the diagnosis
 - [ ] Create test cases
+- [ ] Use regex to catch errors more nicely

@@ -12,7 +12,6 @@ import qualified Codec.Archive.Zip             as Zip
 
 import qualified Data.ByteString.Lazy          as LBS
 
-import qualified Data.Text.Lazy                as LT
 import qualified Data.Text.Lazy.Encoding       as LT
 
 import           Data.Attoparsec.Text.Lazy
@@ -40,10 +39,10 @@ file2Lookup = ["pub/node.pub", "pub/node.pub.0", "pub/node.pub.1"]
 -- | Read knowledgebase csv file
 setupKB :: HasCallStack => FilePath -> IO KnowledgeBase
 setupKB path = do
-    kfile <- LBS.readFile path-- Load knowledebase
+    kfile <- LBS.readFile path
     let kb = parse parseKnowLedgeBase (LT.decodeUtf8 kfile)
     case eitherResult kb of
-        Left e    -> error $ "File not found" <> e-- Ugh need to do something better
+        Left e    -> error $ "File not found" <> e
         Right res -> return res
 
 -- | Read zip file
@@ -57,7 +56,7 @@ readZip rawzip = case Zip.toArchiveOrFail rawzip of
     handleEntry :: Zip.Entry -> (FilePath, LBS.ByteString)
     handleEntry entry = (Zip.eRelativePath entry, Zip.fromEntry entry)
 
--- | Read zip file and return files that will be analyzed
+-- | Read zip file
 readZippedPub :: HasCallStack => FilePath -> IO (Map FilePath LBS.ByteString)
 readZippedPub path = do
     file <- LBS.readFile path
@@ -78,6 +77,6 @@ main :: IO ()
 main = do
     kbase <- setupKB knowledgeBaseFile                       -- Read & create knowledge base
     zipMap <- readZippedPub zLogFile                         -- Read File
-    let extractedLogs = extractLogs zipMap file2Lookup
-        filteredKnownErrors = runReader (extractIssuesFromLogs extractedLogs) kbase
+    let extractedLogs = extractLogs zipMap file2Lookup       -- Extract selected logs
+        filteredKnownErrors = runReader (extractIssuesFromLogs extractedLogs) kbase -- Analyze logs
     mapM_ print filteredKnownErrors
