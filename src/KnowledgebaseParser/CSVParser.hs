@@ -38,6 +38,7 @@ parseErrorCode =
     <|> (string "Unknown"           >> return Unknown)
     <|> (string "ConnectionRefused" >> return ConnectionRefused)
     <|> (string "NetworkError"      >> return NetworkError)
+    <|> (string "PermissionError"   >> return PermissonError)
     <|> (string "FileNotFound"      >> return FileNotFound)
     <|> (string "BalanceError"      >> return BalanceError)
     <|> (string "TimeSync"          >> return TimeSync)

@@ -66,15 +66,15 @@ readZippedPub path = do
     let zipMap = readZip file
     case zipMap of
         Left e -> error $ "Error occured: " <> e
-        Right fileMap -> case Map.lookup "pub/node.pub" fileMap of
-            Nothing -> error "cannot find node.pub file"
-            Just node -> return node-- just take cardano.log
+        Right fileMap -> case Map.lookup "pub/node.pub" fileMap of -- just take cardano.log
+            Nothing -> error "Cannot find node.pub file, please make sure you've chosen right file"
+            Just node -> return node
 
 main :: IO ()
 main = do
     kbase <- setupKB knowledgeBaseFile                       -- Read & create knowledge base
-    file <- readZippedPub zLogFile                             -- Read File
-    let eachLine        = LT.lines $ LT.decodeUtf8 file
+    nodeLog <- LBS.readFile logFile                        -- Read File
+    let eachLine        = LT.lines $ LT.decodeUtf8 nodeLog
         knownErrors     = map (runClassifier kbase) eachLine -- Parse file
         filteredErrors  = nub $ sortKnownIssue $ filterMaybe knownErrors
     mapM_ print filteredErrors

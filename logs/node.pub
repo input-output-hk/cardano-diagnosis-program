@@ -148,9 +148,9 @@
 [92m[node.plugin:DEBUG:ThreadId 15417] [0m[2018-03-30 12:51:38.26 UTC] getFullWalletHistory: formed cTxs
 [92m[node.plugin:DEBUG:ThreadId 15414] [0m[2018-03-30 12:51:38.26 UTC] getHistory: filtered transactions
 [92m[node.plugin:DEBUG:ThreadId 15418] [0m[2018-03-30 12:51:38.26 UTC] getHistory: filtered transactions
-[94m[node.wallet.servant:INFO:ThreadId 15415] [0m[2018-03-30 12:51:38.26 UTC] 
+[94m[node.wallet.servant:INFO:ThreadId 15415] [0m[2018-03-30 12:51:38.26 UTC]PermissionError
 [36mGET[0m
-    [37m:>[0m api
+    [37m:>[0m api signalProcess: permission denied (Operation not permitted)
     [37m:>[0m txs
     [37m:>[0m histories
     [37m:>[0m 'walletId' field: <id>
