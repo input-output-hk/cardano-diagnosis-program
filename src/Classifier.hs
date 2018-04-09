@@ -1,21 +1,21 @@
 {-# LANGUAGE RecordWildCards #-}
 
-module Parsers (
-      runAnalysis
+module Classifier (
+      runClassifier
     , sortKnownIssue
     ) where
 
 import qualified Data.Text.Lazy as LT
 
-import           Types
+import           Types (Knowledge(..), KnowledgeBase)
 
 -- | Run analysis on given line
-runAnalysis :: KnowledgeBase -> LT.Text -> Maybe Knowledge
-runAnalysis [] _ = Nothing
-runAnalysis (k@Knowledge{..}:xs) str =
+runClassifier :: KnowledgeBase -> LT.Text -> Maybe Knowledge
+runClassifier [] _ = Nothing
+runClassifier (k@Knowledge{..}:xs) str =
     if kErrorText `LT.isInfixOf` str
      then Just k
-     else runAnalysis xs str
+     else runClassifier xs str
 
 -- | Sort known issues by priority
 sortKnownIssue :: [Knowledge] -> [Knowledge]

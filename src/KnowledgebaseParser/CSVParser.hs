@@ -34,16 +34,16 @@ quotedField =
 -- | Parse Errorcode
 parseErrorCode :: Parser ErrorCode
 parseErrorCode =
-        (string "FileNotFound"      >> return FileNotFound)
+        (string "Error"             >> return Error)
+    <|> (string "Unknown"           >> return Unknown)
+    <|> (string "ConnectionRefused" >> return ConnectionRefused)
+    <|> (string "NetworkError"      >> return NetworkError)
+    <|> (string "FileNotFound"      >> return FileNotFound)
+    <|> (string "BalanceError"      >> return BalanceError)
     <|> (string "TimeSync"          >> return TimeSync)
     <|> (string "DBError"           >> return DBError)
     <|> (string "ShortStorage"      >> return ShortStorage)
-    <|> (string "NetworkError"      >> return NetworkError)
-    <|> (string "ConnectionRefused" >> return ConnectionRefused)
-    <|> (string "Error"             >> return Error)
-    <|> (string "Unknown"           >> return Unknown)
 
--- | Parse knowledge
 parseKnowledge :: Parser Knowledge
 parseKnowledge = do
     e <- quotedField

@@ -123,7 +123,7 @@
 [92m[node.server.block:DEBUG:ThreadId 15434] [0m[2018-03-30 12:51:38.25 UTC] handleBlockHeaders: got some unsolicited block header(s)
 [92m[node.plugin:DEBUG:ThreadId 15417] [0m[2018-03-30 12:51:38.25 UTC] getFullWalletHistory: fetched addresses and block/local histories
 [92m[node.plugin:DEBUG:ThreadId 15415] [0m[2018-03-30 12:51:38.25 UTC] getHistory: filtered transactions
-[94m[node.wallet.servant:INFO:ThreadId 15440] [0m[2018-03-30 12:51:38.25 UTC] 
+[94m[node.wallet.servant:INFO:ThreadId 15440] [0m[2018-03-30 12:51:38.25 UTC] irrelevant to given wallet
 [36mGET[0m
     [37m:>[0m api
     [37m:>[0m update

@@ -1,9 +1,10 @@
+{-# LANGUAGE FlexibleContexts  #-}
 {-# LANGUAGE OverloadedStrings #-}
 
 module Main where
 
-import           GHC.Stack                     (HasCallStack)
 import           Data.Monoid                   ((<>))
+import           GHC.Stack                     (HasCallStack)
 
 import qualified Data.ByteString.Lazy          as LBS
 
@@ -18,8 +19,8 @@ import           Data.List                     (nub)
 import           Data.Map                      (Map)
 import qualified Data.Map                      as Map
 
+import           Classifier                    (runClassifier, sortKnownIssue)
 import           KnowledgebaseParser.CSVParser (parseKnowLedgeBase)
-import           Parsers
 import           Types                         (KnowledgeBase)
 
 logFile :: FilePath
@@ -28,9 +29,12 @@ logFile = "./logs/node.pub"
 knowledgeBaseFile :: FilePath
 knowledgeBaseFile = "./knowledgebase/knowledge.csv"
 
--- | Read knowledgebase CSV file
-readKB :: HasCallStack => FilePath -> IO KnowledgeBase
-readKB path = do
+zLogFile :: FilePath
+zLogFile = "./logs/pub.zip"
+
+-- | Read knowledgebase csv file
+setupKB :: HasCallStack => FilePath -> IO KnowledgeBase
+setupKB path = do
     kfile <- LBS.readFile path-- Load knowledebase
     let kb = parse parseKnowLedgeBase (LT.decodeUtf8 kfile)
     case eitherResult kb of
@@ -55,11 +59,22 @@ readZip rawzip = case Zip.toArchiveOrFail rawzip of
     handleEntry :: Zip.Entry -> (FilePath, LBS.ByteString)
     handleEntry entry = (Zip.eRelativePath entry, Zip.fromEntry entry)
 
+-- | Read zip file and return files that will be analyzed
+readZippedPub :: HasCallStack => FilePath -> IO LBS.ByteString
+readZippedPub path = do
+    file <- LBS.readFile path
+    let zipMap = readZip file
+    case zipMap of
+        Left e -> error $ "Error occured: " <> e
+        Right fileMap -> case Map.lookup "pub/node.pub" fileMap of
+            Nothing -> error "cannot find node.pub file"
+            Just node -> return node-- just take cardano.log
+
 main :: IO ()
 main = do
-    kbase <- readKB knowledgeBaseFile
-    file <- LBS.readFile logFile            -- Read File
+    kbase <- setupKB knowledgeBaseFile                       -- Read & create knowledge base
+    file <- readZippedPub zLogFile                             -- Read File
     let eachLine        = LT.lines $ LT.decodeUtf8 file
-        knownErrors     = map (runAnalysis kbase) eachLine -- Parse file
+        knownErrors     = map (runClassifier kbase) eachLine -- Parse file
         filteredErrors  = nub $ sortKnownIssue $ filterMaybe knownErrors
     mapM_ print filteredErrors

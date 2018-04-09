@@ -11,6 +11,7 @@ data ErrorCode =
   | Unknown
   | ConnectionRefused
   | NetworkError
+  | BalanceError
   | FileNotFound
   | TimeSync
   | DBError
