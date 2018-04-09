@@ -45,6 +45,7 @@ parseErrorCode =
     <|> (string "DBError"           >> return DBError)
     <|> (string "ShortStorage"      >> return ShortStorage)
 
+-- | Parse each csv records
 parseKnowledge :: Parser Knowledge
 parseKnowledge = do
     e <- quotedField
@@ -58,6 +59,6 @@ parseKnowledge = do
     s <- quotedField
     return $ Knowledge e c p s
 
--- | Run parser an create knowledgebase
+-- | Parse CSV file and create knowledgebase
 parseKnowLedgeBase :: Parser KnowledgeBase
 parseKnowLedgeBase = many $ parseKnowledge <* endOfLine
