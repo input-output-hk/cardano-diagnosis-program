@@ -15,18 +15,21 @@ import Data.ByteString.Lazy as LBS
 import Data.Vector (Vector)
 import qualified Data.Vector as V
 
+import Control.Monad.Reader
+
 import           Types (Knowledge(..), KnowledgeBase)
 
-extractIssuesFromLogs :: KnowledgeBase -> [LBS.ByteString] -> [Knowledge]
-extractIssuesFromLogs kbase logs = 
-    let extractedKnownErrors = V.concat $ Prelude.map (runClassifiers kbase) logs
-    in sort $ V.toList $ vNub extractedKnownErrors
+extractIssuesFromLogs :: [LBS.ByteString] -> Reader KnowledgeBase [Knowledge]
+extractIssuesFromLogs logs = filterLogs <$> mapM runClassifiers logs
+   where
+      filterLogs = sort . V.toList . vNub . V.concat
 
 -- | Run analysis on given file
-runClassifiers :: KnowledgeBase -> LBS.ByteString -> Vector Knowledge
-runClassifiers kbase logfile = 
+runClassifiers :: LBS.ByteString -> Reader KnowledgeBase (Vector Knowledge)
+runClassifiers logfile = do
+    kbase <- ask
     let eachLine = V.fromList $ LT.lines $ LT.decodeUtf8 logfile -- this is an array which is way too slow
-    in filterMaybe $ V.map (analyzeLine kbase) eachLine
+    return $ filterMaybe $ V.map (analyzeLine kbase) eachLine
 
 -- | Run analysis on given line
 analyzeLine :: KnowledgeBase -> LT.Text -> Maybe Knowledge

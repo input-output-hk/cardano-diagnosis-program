@@ -28,6 +28,7 @@ dependencies:
 - attoparsec
 - zip-archive
 - vector
+- mtl
 
 library:
   source-dirs: src

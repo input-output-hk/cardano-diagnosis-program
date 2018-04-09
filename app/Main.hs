@@ -8,18 +8,18 @@ import           Data.Monoid                   ((<>))
 import           GHC.Stack                     (HasCallStack)
 
 
+import qualified Codec.Archive.Zip             as Zip
+
 import qualified Data.ByteString.Lazy          as LBS
 
 import qualified Data.Text.Lazy                as LT
 import qualified Data.Text.Lazy.Encoding       as LT
 
-import qualified Codec.Archive.Zip             as Zip
-
 import           Data.Attoparsec.Text.Lazy
 
-import           Data.List                     (nub, sort)
 import           Data.Map                      (Map)
 import qualified Data.Map                      as Map
+import Control.Monad.Reader
 
 import           Classifier                    (extractIssuesFromLogs)
 import           KnowledgebaseParser.CSVParser (parseKnowLedgeBase)
@@ -66,6 +66,7 @@ readZippedPub path = do
         Left e        -> error $ "Error occured: " <> e
         Right fileMap -> return fileMap
 
+-- | Extract selected log file from the given map
 extractLogs :: Map FilePath LBS.ByteString -> [FilePath] -> [LBS.ByteString]
 extractLogs zipmap = map (extractLog zipmap)
     where
@@ -76,7 +77,7 @@ extractLogs zipmap = map (extractLog zipmap)
 main :: IO ()
 main = do
     kbase <- setupKB knowledgeBaseFile                       -- Read & create knowledge base
-    zipMap <- readZippedPub zLogFile                        -- Read File
+    zipMap <- readZippedPub zLogFile                         -- Read File
     let extractedLogs = extractLogs zipMap file2Lookup
-        filteredKnownErrors = extractIssuesFromLogs kbase extractedLogs
+        filteredKnownErrors = runReader (extractIssuesFromLogs extractedLogs) kbase
     mapM_ print filteredKnownErrors
