@@ -49,10 +49,16 @@ type ErrorText = LT.Text
 
 newtype PrintData = PrintData ([Problem], [Solution], [ErrorCode], [ErrorText])
 
+-- Todo: refactor this code
 formatData' :: [Knowledge] -> PrintData -> PrintData
 formatData' [] fd                           = fd
 formatData' (Knowledge{..}:xs) (PrintData (p,s,ec,es)) = 
-  formatData' xs (PrintData (kProblem:p, kSolution:s, kErrorCode:ec ,kErrorText:es))
+  formatData' xs (PrintData (nubList kProblem p, nubList kSolution s, nubList kErrorCode ec, nubList kErrorText es))
+    where
+      nubList :: (Ord a) => a -> [a] -> [a]
+      nubList a ary = if a `elem` ary
+                      then ary
+                      else a:ary
 
 formatData :: [Knowledge] -> PrintData
 formatData xs = formatData' xs (PrintData ([],[],[],[]))

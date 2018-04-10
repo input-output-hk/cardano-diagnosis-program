@@ -41,17 +41,16 @@ WIP
 - [x] Provide more descriptive solution
 - [x] Analyze Daedalus log file
 - [x] Pretty print the diagnosis
+- [ ] Find the way to facilitate the file execution
 - [ ] Find Log file on current directory and analyze them
-- [ ] Use blaze-html to render out the output
+- [x] Use blaze-html to render out the output
 - [ ] Count the occurance of error
 - [ ] Catch suspcious lines and report them
 - [ ] Create test cases
 - [ ] Use regex to catch errors more nicely
-- [ ] (Maybe) use better format for knowledge base
 - [ ] Create solution folder with list of solutions, when diagnosted, it reads the file and write it to somefile to provide solution
-- [ ] Provide solution based on local
-- [ ] Find the way to facilitate the file execution
+- [ ] Provide solution based on locale
 
 ## Issue
 
-- I'd have to admit, the analysis is not done in nice way. This is causing performance issues.
+- I'd have to admit, the analysis is not done in nice way (close to brute forcing the logs). This is causing performance issues. If there's anyone who has knowledge of haskell, please take a look at PClassifiers.hs`

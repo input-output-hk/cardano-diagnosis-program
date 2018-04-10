@@ -19,11 +19,11 @@ import Types
 cssLink :: AttributeValue
 cssLink = "https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
 
-renderList :: (Show a, ToMarkup a) => Text -> [a] -> Html
+renderList :: (ToMarkup a) => Text -> [a] -> Html
 renderList headline xs =
   div ! A.class_ "my-3 p-3 bg-white rounded box-shadow" $ do
     h4 ! A.class_ "border-bottom border-gray pb-2 mb-0" $ toHtml headline
-    forM_ xs (\x -> div (toHtml x) ! A.class_ "pt-3" )
+    ul ! A.class_ "list-group list-group-flush" $ forM_ xs (\x -> div (toHtml x) ! A.class_ "list-group-item" )
 
 jumbotron :: Html
 jumbotron =
@@ -33,14 +33,14 @@ jumbotron =
       p ! A.class_ "lead" $ "We've successfully analyzed your log folder!"
 
 generateReport2Html :: PrintData -> Html
-generateReport2Html (PrintData (as, bs, cs, ds)) = docTypeHtml $ do
+generateReport2Html (PrintData (ps, ss, ecodes, etexts)) = docTypeHtml $ do
   head $ do
     title "Cardano Log Classifier"
     link ! A.href cssLink ! A.rel "stylesheet" ! A.type_ "text/css" ! A.title "CSS"
   body $ do
       jumbotron 
       main ! A.class_ "container" $ do
-        renderList "Problem" as
-        renderList "Possible Solution" bs
-        renderList "Error Code" cs
-        renderList "Error Text" ds
+        renderList "Problem" ps
+        renderList "Possible Solution" ss
+        renderList "Error Code" ecodes
+        renderList "Error Text" etexts

@@ -11,6 +11,10 @@ extra-source-files:
 - ChangeLog.md
 ghc-options:
 - -Wall
+- -Wcompat
+- -Wincomplete-record-updates
+- -Wincomplete-uni-patterns
+- -Wredundant-constraints
 
 # Metadata used when publishing your package
 # synopsis:            Short description of your package

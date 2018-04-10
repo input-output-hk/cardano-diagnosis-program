@@ -36,8 +36,9 @@ knowledgeBaseFile = "./knowledgebase/knowledge.csv"
 zLogFile :: FilePath
 zLogFile = "./logs/pub.zip"
 
+-- This can be solved
 file2Lookup :: [FilePath]
-file2Lookup = ["pub/Daedalus.log","pub/launcher","pub/node.pub"]
+file2Lookup = map (\path -> "pub/" <> path) ["Daedalus.log","launcher","node.pub"]
 
 -- | Read knowledgebase csv file
 setupKB :: HasCallStack => FilePath -> IO KnowledgeBase
@@ -49,7 +50,7 @@ setupKB path = do
         Right res -> return res
 
 -- | Read zip file
-readZip :: HasCallStack => LBS.ByteString -> Either String (Map FilePath LBS.ByteString)
+readZip :: LBS.ByteString -> Either String (Map FilePath LBS.ByteString)
 readZip rawzip = case Zip.toArchiveOrFail rawzip of
     Left err      -> Left err
     Right archive -> Right $ finishProcessing archive
