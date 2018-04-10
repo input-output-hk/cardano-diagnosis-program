@@ -20,6 +20,8 @@ This is a log classifer for Cardano logs.
 
 - It will not try to fix the issue by itself (This way too dangerous).
 
+- This cannot catch error that is unknown. (How can you catch something you don't know what it is?)
+
 ## How to use
 
 WIP
@@ -38,3 +40,4 @@ WIP
 - [ ] Create test cases
 - [ ] Use regex to catch errors more nicely
 - [ ] (Maybe) use better format for knowledge base
+- [ ] Create solution folder with list of solutions, when diagnosted, it reads the file and write it to somefile to provide solution
