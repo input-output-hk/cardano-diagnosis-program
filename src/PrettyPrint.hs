@@ -29,6 +29,7 @@ instance Show PrintData where
     "\n==== Error Category ====\n"                  <> printList ecodes <>
     "\n==== Error Texts ====\n"                     <> printListS etexts
 
+-- Code smell!
 printListS :: [Text] -> String
 printListS = foldr (\p acc -> "- " <> unpack p <> "\n" <> acc) []
 

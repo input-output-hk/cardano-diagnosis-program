@@ -18,13 +18,19 @@ This is a log classifer for Cardano logs.
 
 - This will tell you what could be a issue your node is having and provide possible solutions.
 
-- It will not try to fix the issue by itself (This way too dangerous).
+- It will not try to fix the issue by itself (**This way too dangerous**).
 
 - This cannot catch error that is unknown. (How can you catch something you don't know what it is?)
 
 ## How to use
 
 WIP
+
+## Working environments
+
+- [ ] Windows
+- [ ] MacOS
+- [ ] Linux
 
 ## Todo
 
@@ -34,10 +40,18 @@ WIP
 - [x] Test on windows, mac
 - [x] Provide more descriptive solution
 - [x] Analyze Daedalus log file
+- [x] Pretty print the diagnosis
+- [ ] Find Log file on current directory and analyze them
+- [ ] Use blaze-html to render out the output
 - [ ] Count the occurance of error
 - [ ] Catch suspcious lines and report them
-- [ ] Pretty print the diagnosis
 - [ ] Create test cases
 - [ ] Use regex to catch errors more nicely
 - [ ] (Maybe) use better format for knowledge base
 - [ ] Create solution folder with list of solutions, when diagnosted, it reads the file and write it to somefile to provide solution
+- [ ] Provide solution based on local
+- [ ] Find the way to facilitate the file execution
+
+## Issue
+
+- I'd have to admit, the analysis is not done in nice way. This is causing performance issues.

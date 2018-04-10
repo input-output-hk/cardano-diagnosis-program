@@ -23,7 +23,7 @@ import qualified Data.Map                      as Map
 import           Classifier                    (extractIssuesFromLogs)
 import           KnowledgebaseParser.CSVParser (parseKnowLedgeBase)
 import           Types                         (KnowledgeBase)
-import           PrettyPrint                   (PrintData(..), formatData)
+import           PrettyPrint                   (formatData)
 
 logFile :: FilePath
 logFile = "./logs/node.pub"
@@ -76,9 +76,9 @@ extractLogs zipmap = map (extractLog zipmap)
 
 main :: IO ()
 main = do
-    kbase <- setupKB knowledgeBaseFile                       -- Read & create knowledge base
-    zipMap <- readZippedPub zLogFile                         -- Read File
-    let extractedLogs = extractLogs zipMap file2Lookup       -- Extract selected logs
+    kbase <- setupKB knowledgeBaseFile                    -- Read & create knowledge base
+    zipMap <- readZippedPub zLogFile                      -- Read File
+    let extractedLogs = extractLogs zipMap file2Lookup    -- Extract selected logs
         filteredKnownErrors = runReader (extractIssuesFromLogs extractedLogs) kbase -- Analyze logs
-        printableData = formatData filteredKnownErrors
+        printableData = formatData filteredKnownErrors    -- Convert into readable format
     print printableData
