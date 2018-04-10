@@ -14,8 +14,10 @@ data ErrorCode =
   | PermissonError
   | BalanceError
   | FileNotFound
+  | StaleLockFile
   | TimeSync
   | DBError
+  | UserNameError
   | ShortStorage
   deriving (Eq, Ord, Show)
 

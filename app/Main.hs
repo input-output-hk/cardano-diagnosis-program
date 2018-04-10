@@ -34,7 +34,7 @@ zLogFile :: FilePath
 zLogFile = "./logs/pub.zip"
 
 file2Lookup :: [FilePath]
-file2Lookup = ["pub/Daedalus.log", "pub/node.pub", "pub/node.pub.0", "pub/node.pub.1"]
+file2Lookup = ["pub/Daedalus.log","pub/launcher","pub/node.pub"]
 
 -- | Read knowledgebase csv file
 setupKB :: HasCallStack => FilePath -> IO KnowledgeBase

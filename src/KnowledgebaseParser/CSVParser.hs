@@ -40,9 +40,11 @@ parseErrorCode =
     <|> (string "NetworkError"      >> return NetworkError)
     <|> (string "PermissionError"   >> return PermissonError)
     <|> (string "FileNotFound"      >> return FileNotFound)
+    <|> (string "StaleLockFile"     >> return StaleLockFile)
     <|> (string "BalanceError"      >> return BalanceError)
     <|> (string "TimeSync"          >> return TimeSync)
     <|> (string "DBError"           >> return DBError)
+    <|> (string "UserNameError"     >> return UserNameError)
     <|> (string "ShortStorage"      >> return ShortStorage)
 
 -- | Parse each csv records

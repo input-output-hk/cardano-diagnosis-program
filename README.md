@@ -31,9 +31,9 @@ WIP
 - [x] Use reader monad
 - [x] Test on windows, mac
 - [x] Provide more descriptive solution
+- [x] Analyze Daedalus log file
+- [ ] Count the occurance of error
 - [ ] Catch suspcious lines and report them
-- [ ] Analyze Daedalus log file
-- [ ] Count the occurance of errors
 - [ ] Pretty print the diagnosis
 - [ ] Create test cases
 - [ ] Use regex to catch errors more nicely
