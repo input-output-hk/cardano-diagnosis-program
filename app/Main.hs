@@ -23,7 +23,9 @@ import qualified Data.Map                      as Map
 import           Classifier                    (extractIssuesFromLogs)
 import           KnowledgebaseParser.CSVParser (parseKnowLedgeBase)
 import           Types                         (KnowledgeBase)
-import           PrettyPrint                   (formatData)
+import           GenerateReportHtml            (formatData, generateReport2Html)
+
+import           Text.Blaze.Html.Renderer.Pretty (renderHtml)
 
 logFile :: FilePath
 logFile = "./logs/node.pub"
@@ -81,4 +83,5 @@ main = do
     let extractedLogs = extractLogs zipMap file2Lookup    -- Extract selected logs
         filteredKnownErrors = runReader (extractIssuesFromLogs extractedLogs) kbase -- Analyze logs
         printableData = formatData filteredKnownErrors    -- Convert into readable format
-    print printableData
+    writeFile "result.html" $ renderHtml $ generateReport2Html printableData
+    -- Need to generate different html based on the result

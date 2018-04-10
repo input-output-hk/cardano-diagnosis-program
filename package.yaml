@@ -9,6 +9,8 @@ copyright:           "2018 Author name here"
 extra-source-files:
 - README.md
 - ChangeLog.md
+ghc-options:
+- -Wall
 
 # Metadata used when publishing your package
 # synopsis:            Short description of your package
@@ -29,6 +31,7 @@ dependencies:
 - zip-archive
 - vector
 - mtl
+- blaze-html
 
 library:
   source-dirs: src

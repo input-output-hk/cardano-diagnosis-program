@@ -48,16 +48,17 @@ parseErrorCode =
     <|> (string "ShortStorage"      >> return ShortStorage)
 
 -- | Parse each csv records
+-- Not really clean code..
 parseKnowledge :: Parser Knowledge
 parseKnowledge = do
     e <- quotedField
-    char ','
-    char '"'
+    _ <- char ','
+    _ <- char '"'
     c <- parseErrorCode
-    char '"'
-    char ','
+    _ <- char '"'
+    _ <- char ','
     p <- quotedField
-    char ','
+    _ <- char ','
     s <- quotedField
     return $ Knowledge e c p s
 
