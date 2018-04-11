@@ -33,7 +33,6 @@ dependencies:
 - time
 - attoparsec
 - zip-archive
-- vector
 - mtl
 - blaze-html
 - time

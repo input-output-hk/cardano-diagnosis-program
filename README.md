@@ -46,7 +46,7 @@ WIP
 - [ ] Run benchmark on lists vs vectors
 - [x] Use blaze-html to render out the output
 - [ ] Count the occurance of error
-- [ ] Catch suspcious lines and report them
+- [x] Catch suspcious lines and report them
 - [ ] Create test cases
 - [ ] Use regex to catch errors more nicely
 - [ ] Find the way to parse text into html

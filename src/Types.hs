@@ -8,6 +8,7 @@ module Types (
 import qualified Data.Text.Lazy   as LT
 import           Text.Blaze.Html5 (ToMarkup, toMarkup)
 
+-- Every error should have its unique errorcode
 data ErrorCode =
       ShortStorage
     | UserNameError
@@ -29,7 +30,7 @@ data Knowledge =
   ,  kErrorCode :: !ErrorCode
   ,  kProblem   :: !LT.Text
   ,  kSolution  :: !LT.Text
-  } deriving (Eq, Show)
+  }
 
 type KnowledgeBase = [Knowledge]
 
@@ -40,9 +41,6 @@ data Analysis =
   , aSolution  :: !LT.Text
   , aErrorText :: !LT.Text
   } deriving (Show)
-
-instance Ord Knowledge where
-  k1 <= k2 = kErrorCode k1 <= kErrorCode k2
 
 instance Eq Analysis where
   a1 == a2 = aErrorCode a1 == aErrorCode a2

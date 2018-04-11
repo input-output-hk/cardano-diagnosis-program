@@ -23,17 +23,145 @@
                 <div class="list-group-item list-group-item-action flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1 text-muted">
-                            Block data possibly corrupted
+                            Not enough space on hard drive to store block data
                         </h5>
-                        <span class="badge badge-warning">
-                            DBError
-                        </span>
                     </div>
                     <p class="mb-1">
-                        To fix this issue, please delete the content of DB-1.0
+                        To fix this, please create more disk space
                     </p>
+                    <span class="badge badge-warning">
+                        ShortStorage
+                    </span>
                     <small class="text-muted">
-                        [node:ERROR:ThreadId 3] [2018-04-07 00:42:50.13 UTC] UnsuccessfulOperation &quot;c_rocksdb_open&quot; &quot;Corruption: Can&#39;t access /000915.sst: IO error: Can not get size for: C:\\Users\\User\\AppData\\Roaming\\Daedalus\\DB-1.0\\blocks\\index/000915.sst: \25351\23450\12373\12428\12383\12501\12449\12452\12523\12364\35211\12388\12363\12426\12414\12379\12435\12290\r\n\nCan&#39;t access /000912.sst: IO error: Can not get size for: C:\\Users\\User\\AppData\\Roaming\\Daedalus\\DB-1.0\\blocks\\index/000912.sst: \25351\23450\12373\12428\12383\12501\12449\12452\12523\12364\35211\12388\12363\12426\12414\12379\12435\12290\r\n\n&quot;
+                        &quot;resource exhausted (No space left on device)&quot;,&quot;ShortStorage&quot;,&quot;Not enough space on hard drive to store block data&quot;,&quot;Create more disk space&quot;
+                    </small>
+                </div>
+                <div class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1 text-muted">
+                            User is using non-latin characters for username
+                        </h5>
+                    </div>
+                    <p class="mb-1">
+                        To fix this issue, pleae change your PC&#39;s username using only latin-characters
+                    </p>
+                    <span class="badge badge-warning">
+                        UserNameError
+                    </span>
+                    <small class="text-muted">
+                        &quot;IO error: Failed to create dir&quot;,&quot;UserNameError&quot;,&quot;User is using non-latin characters for username&quot;,&quot;Change PC&#39;s username to latin-characters&quot;
+                    </small>
+                </div>
+                <div class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1 text-muted">
+                            Your PC&#39;s time is out of sync
+                        </h5>
+                    </div>
+                    <p class="mb-1">
+                        To fix this issue, you&#39;ll need to sync your PC&#39;s time with internet time. For instrcutions, please look at: https://youtu.be/xPEKM3zcOaA
+                    </p>
+                    <span class="badge badge-warning">
+                        TimeSync
+                    </span>
+                    <small class="text-muted">
+                        &quot;useless for the following reason&quot;,&quot;TimeSync&quot;,&quot;Your PC&#39;s time is out of sync&quot;,&quot;Sync your PC&#39;s time with internet time https://youtu.be/xPEKM3zcOaA&quot;
+                    </small>
+                </div>
+                <div class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1 text-muted">
+                            File missing
+                        </h5>
+                    </div>
+                    <p class="mb-1">
+                        Please reinstall Daedalus and run the application
+                    </p>
+                    <span class="badge badge-warning">
+                        FileNotFound
+                    </span>
+                    <small class="text-muted">
+                        &quot;No such file or directory&quot;,&quot;FileNotFound&quot;,&quot;File missing&quot;,&quot;Reinstall Daedalus&quot;
+                    </small>
+                </div>
+                <div class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1 text-muted">
+                            Launching node without admin rights
+                        </h5>
+                    </div>
+                    <p class="mb-1">
+                        Please make sure you launch the application with admin rights
+                    </p>
+                    <span class="badge badge-warning">
+                        StaleLockFile
+                    </span>
+                    <small class="text-muted">
+                        &quot;signalProcess: permission denied (Operation not permitted&quot;,&quot;StaleLockFile&quot;,&quot;Launching node without admin rights&quot;,&quot;Make sure to run Daedalus with admin rights&quot;
+                    </small>
+                </div>
+                <div class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1 text-muted">
+                            Local block data is corrupted
+                        </h5>
+                    </div>
+                    <p class="mb-1">
+                        To fix this issue, Please delete the content of DB-1.0
+                    </p>
+                    <span class="badge badge-warning">
+                        DBError
+                    </span>
+                    <small class="text-muted">
+                        &quot;DBMalformed&quot;,&quot;DBError&quot;,&quot;Local block data is corrupted&quot;,&quot;Delete content of DB-1.0&quot;
+                    </small>
+                </div>
+                <div class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1 text-muted">
+                            Daedalus shows wrong Ada amount
+                        </h5>
+                    </div>
+                    <p class="mb-1">
+                        Unfortunately, there&#39;s no workaround for this solution. Please report support@iohk.io immediately
+                    </p>
+                    <span class="badge badge-warning">
+                        BalanceError
+                    </span>
+                    <small class="text-muted">
+                        &quot;irrelevant to given wallet&quot;,&quot;BalanceError&quot;,&quot;Daedalus shows wrong Ada amount&quot;,&quot;Unknown, Contact IOHK&quot;
+                    </small>
+                </div>
+                <div class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1 text-muted">
+                            Firewall is blocking the connection
+                        </h5>
+                    </div>
+                    <p class="mb-1">
+                        To fix this issue, please try other ISP provider
+                    </p>
+                    <span class="badge badge-warning">
+                        NetworkError
+                    </span>
+                    <small class="text-muted">
+                        &quot;returned empty list&quot;,&quot;NetworkError&quot;,&quot;Firewall is blocking the connection&quot;,&quot;Use different ISP provider&quot;
+                    </small>
+                </div>
+                <div class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1 text-muted">
+                            Firewall issue
+                        </h5>
+                    </div>
+                    <p class="mb-1">
+                        To fix this issue, please try other ISP provider
+                    </p>
+                    <span class="badge badge-warning">
+                        ConnectionRefused
+                    </span>
+                    <small class="text-muted">
+                        &quot;Network.Socket.recvBuf: failed (No error)&quot;,&quot;NetworkError&quot;,&quot;Firewall issue&quot;,&quot;To fix this issue, please change the ISP provider&quot;
                     </small>
                 </div>
             </div>

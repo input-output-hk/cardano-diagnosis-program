@@ -8,5 +8,4 @@
 "Network.Socket.recvBuf: resource vanished","NetworkError","Network error","To fix this issue, please try other ISP provider"
 "IO error: Failed to create dir","UserNameError","User is using non-latin characters for username","To fix this issue, pleae change your PC's username using only latin-characters"
 "open.lock: Locked by","StaleLockFile","open.lock file is corrupted due to improper shutdown","In order to fix this, please delete open.lock file \n Win: win \n Mac: mac"
-"IO error: Can not get size for","DBError","Block data possibly corrupted","To fix this issue, please delete the content of DB-1.0"
-"Network.Socket.recvBuf: failed (No error)","NetworkError","Firewall issue","To fix this issue, please change the ISP provider"
+"Network.Socket.recvBuf: failed (No error)","ConnectionRefused","Firewall issue","To fix this issue, please try other ISP provider"
