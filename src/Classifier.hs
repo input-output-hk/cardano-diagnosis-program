@@ -9,6 +9,7 @@ import           Data.List               (sort)
 
 import qualified Data.Text.Lazy          as LT
 import qualified Data.Text.Lazy.Encoding as LT
+import Data.Text.Encoding.Error (ignore)
 
 import           Data.ByteString.Lazy    as LBS
 
@@ -28,7 +29,7 @@ extractIssuesFromLogs logs = filterLogs <$> mapM runClassifiers logs
 runClassifiers :: LBS.ByteString -> Reader KnowledgeBase (Vector Knowledge)
 runClassifiers logfile = do
     kbase <- ask
-    let eachLine = V.fromList $ LT.lines $ LT.decodeUtf8 logfile -- this is an array which is way too slow
+    let eachLine = V.fromList $ LT.lines $ LT.decodeUtf8With ignore logfile -- this is an array which is way too slow
     return $ vFilterMaybe $ V.map (analyzeLine kbase) eachLine
 
 -- | Run analysis on given line
