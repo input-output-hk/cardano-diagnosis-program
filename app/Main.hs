@@ -4,7 +4,6 @@
 module Main where
 
 import           Data.Monoid                     ((<>))
-import Data.List (sort)
 
 import           GHC.Stack                       (HasCallStack)
 import           System.Environment              (getArgs)
@@ -41,7 +40,7 @@ setupKB path = do
     let kb = parse parseKnowLedgeBase (LT.decodeUtf8 kfile)
     case eitherResult kb of
         Left e    -> error $ "File not found" <> e
-        Right res -> return $ sort res
+        Right res -> return res
 
 -- | Read zip file
 readZip :: LBS.ByteString -> Either String (Map FilePath LBS.ByteString)

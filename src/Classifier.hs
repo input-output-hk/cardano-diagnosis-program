@@ -28,17 +28,21 @@ extractIssuesFromLogs logs = filterLogs <$> mapM runClassifiers logs
 -- | Run analysis on given file
 runClassifiers :: LBS.ByteString -> Reader KnowledgeBase (Vector Knowledge)
 runClassifiers logfile = do
-    kbase <- ask
     let eachLine = V.fromList $ LT.lines $ LT.decodeUtf8With ignore logfile -- this is an array which is way too slow
-    return $ vFilterMaybe $ V.map (analyzeLine kbase) eachLine
+    analysis <- V.mapM analyzeLine eachLine
+    return $ join analysis
 
--- | Run analysis on given line
-analyzeLine :: KnowledgeBase -> LT.Text -> Maybe Knowledge
-analyzeLine [] _ = Nothing
-analyzeLine (k@Knowledge{..}:xs) str =
-    if kErrorText `LT.isInfixOf` str
-     then Just k
-     else analyzeLine xs str
+-- | Maybe we should use vector on knowledgebase as well..
+-- | need to accumulate the logs
+analyzeLine :: LT.Text -> Reader KnowledgeBase (Vector Knowledge)
+analyzeLine str = do
+    kbase <- ask
+    let compareWithKnowledge :: LT.Text -> Knowledge -> Maybe Knowledge
+        compareWithKnowledge s k@Knowledge{..} = 
+          if kErrorText `LT.isInfixOf` s
+              then Just k
+              else Nothing
+    return $ vFilterMaybe $ V.fromList $ Prelude.map (compareWithKnowledge str) kbase
 
 -- | Filter out Nothing from list of Maybe a
 vFilterMaybe :: Vector (Maybe a) -> Vector a
