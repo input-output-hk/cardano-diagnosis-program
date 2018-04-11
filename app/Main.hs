@@ -22,7 +22,7 @@ import qualified Data.Map                      as Map
 import           Classifier                    (extractIssuesFromLogs)
 import           KnowledgebaseParser.CSVParser (parseKnowLedgeBase)
 import           Types                         (KnowledgeBase)
-import           HtmlReportGenerator           (formatData, generateReport2Html)
+import           HtmlReportGenerator.Generator (generateReport2Html)
 
 import           Text.Blaze.Html.Renderer.Pretty (renderHtml)
 
@@ -71,6 +71,5 @@ main = do
     zipMap <- readZippedPub zLogFile                      -- Read File
     let extractedLogs = Map.elems $ Map.take 5 zipMap   -- Extract selected logs
         filteredKnownErrors = runReader (extractIssuesFromLogs extractedLogs) kbase -- Analyze logs
-        printableData = formatData filteredKnownErrors    -- Convert into readable format
-    writeFile "result.html" $ renderHtml $ generateReport2Html printableData
+    writeFile "result.html" $ renderHtml $ generateReport2Html filteredKnownErrors
     -- Todo: generate different html based on the result
