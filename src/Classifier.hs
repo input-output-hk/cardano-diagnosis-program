@@ -18,15 +18,15 @@ import qualified Data.Vector             as V
 
 import           Control.Monad.Reader
 
-import           Types                   (Knowledge (..), KnowledgeBase)
+import           Types                   (Knowledge (..), KnowledgeBase, Analysis (..))
 
-extractIssuesFromLogs :: [LBS.ByteString] -> Reader KnowledgeBase [Knowledge]
+extractIssuesFromLogs :: [LBS.ByteString] -> Reader KnowledgeBase [Analysis]
 extractIssuesFromLogs logs = filterLogs <$> mapM runClassifiers logs
    where
       filterLogs = sort . V.toList . vNub . V.concat
 
 -- | Run analysis on given file
-runClassifiers :: LBS.ByteString -> Reader KnowledgeBase (Vector Knowledge)
+runClassifiers :: LBS.ByteString -> Reader KnowledgeBase (Vector Analysis)
 runClassifiers logfile = do
     let eachLine = V.fromList $ LT.lines $ LT.decodeUtf8With ignore logfile -- this is an array which is way too slow
     analysis <- V.mapM analyzeLine eachLine
@@ -34,13 +34,13 @@ runClassifiers logfile = do
 
 -- | Maybe we should use vector on knowledgebase as well..
 -- | need to accumulate the logs
-analyzeLine :: LT.Text -> Reader KnowledgeBase (Vector Knowledge)
+analyzeLine :: LT.Text -> Reader KnowledgeBase (Vector Analysis)
 analyzeLine str = do
     kbase <- ask
-    let compareWithKnowledge :: LT.Text -> Knowledge -> Maybe Knowledge
-        compareWithKnowledge s k@Knowledge{..} = 
+    let compareWithKnowledge :: LT.Text -> Knowledge -> Maybe Analysis
+        compareWithKnowledge s Knowledge{..} = 
           if kErrorText `LT.isInfixOf` s
-              then Just k
+              then Just $ Analysis kErrorCode kProblem kSolution s
               else Nothing
     return $ vFilterMaybe $ V.fromList $ compareWithKnowledge str <$> kbase
 

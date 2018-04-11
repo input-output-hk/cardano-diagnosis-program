@@ -5,6 +5,8 @@ module HtmlReportGenerator.Generator (
   generateReport2Html
 ) where
 
+import Data.Monoid ((<>))
+
 import Text.Blaze.Html5
 import qualified Text.Blaze.Html5.Attributes as A
 
@@ -15,18 +17,19 @@ import Types
 cssLink :: AttributeValue
 cssLink = "https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
 
-renderAnalysisLists :: [Knowledge] -> Html
+renderAnalysisLists :: [Analysis] -> Html
 renderAnalysisLists xs =
   div ! A.class_ "list-group" $
     mapM_ renderAnalysis xs
 
-renderAnalysis :: Knowledge -> Html
-renderAnalysis Knowledge{..} =
+renderAnalysis :: Analysis -> Html
+renderAnalysis Analysis{..} =
   div ! A.class_ "list-group-item list-group-item-action flex-column align-items-start" $ do
     div ! A.class_ "d-flex w-100 justify-content-between" $
-      h5 ! A.class_ "mb-1 text-muted" $ toHtml kProblem
-    p ! A.class_ "mb-1" $ toHtml kSolution
-    small ! A.class_ "text-muted" $ toHtml kErrorCode
+      h5 ! A.class_ "mb-1 text-muted" $ toHtml aProblem
+    p ! A.class_ "mb-1" $ toHtml aSolution
+    small ! A.class_ "text-danger" $ toHtml aErrorCode <> ":"
+    small ! A.class_ "text-muted" $ toHtml aErrorText
 
 jumbotron :: Html
 jumbotron =
@@ -35,7 +38,7 @@ jumbotron =
       h1 ! A.class_ "display-4" $ "Cardano Log Classifier"
       p ! A.class_ "lead" $ "We've successfully analyzed your log folder!"
 
-generateReport2Html :: [Knowledge] -> Html
+generateReport2Html :: [Analysis] -> Html
 generateReport2Html xs = docTypeHtml $ do
   head $ do
     title "Cardano Log Classifier"

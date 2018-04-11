@@ -68,10 +68,11 @@ main = do
     kbase <- setupKB knowledgeBaseFile                    -- Read & create knowledge base
     (logFilePath: _)      <- getArgs
     zipMap <- readZippedPub logFilePath                      -- Read File
+    putStrLn "Running analysis on log file"
     let extractedLogs = Map.elems $ Map.take 5 zipMap   -- Extract selected logs
         filteredKnownErrors = runReader (extractIssuesFromLogs extractedLogs) kbase -- Analyze logs
     currTime <- getCurrentTime
     let resultFilename = "result-" <> showGregorian (utctDay currTime) <> ".html"
-    writeFile ("./result" <> resultFilename) $ renderHtml $ generateReport2Html filteredKnownErrors
+    writeFile resultFilename $ renderHtml $ generateReport2Html filteredKnownErrors
     putStrLn $ "Analysis done successfully!! See " <> resultFilename
     -- Todo: generate different html based on the result

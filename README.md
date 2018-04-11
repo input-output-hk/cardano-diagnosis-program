@@ -43,6 +43,7 @@ WIP
 - [x] Pretty print the diagnosis
 - [ ] Find the way to facilitate the file execution
 - [ ] Find Log file on current directory and analyze them
+- [ ] Run benchmark on lists vs vectors
 - [x] Use blaze-html to render out the output
 - [ ] Count the occurance of error
 - [ ] Catch suspcious lines and report them
