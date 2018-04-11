@@ -31,21 +31,21 @@ quotedField =
    char '"' *> insideQuotes <* char '"'
    <?> "quoted field"
 
--- | Parse Errorcode
+--- | Parse ErrorCode
 parseErrorCode :: Parser ErrorCode
 parseErrorCode =
-        (string "Error"             >> return Error)
-    <|> (string "Unknown"           >> return Unknown)
-    <|> (string "ConnectionRefused" >> return ConnectionRefused)
-    <|> (string "NetworkError"      >> return NetworkError)
-    <|> (string "PermissionError"   >> return PermissonError)
+        (string "ShortStorage"      >> return ShortStorage)
+    <|> (string "UserNameError"     >> return UserNameError)
+    <|> (string "TimeSync"          >> return TimeSync)
     <|> (string "FileNotFound"      >> return FileNotFound)
     <|> (string "StaleLockFile"     >> return StaleLockFile)
-    <|> (string "BalanceError"      >> return BalanceError)
-    <|> (string "TimeSync"          >> return TimeSync)
     <|> (string "DBError"           >> return DBError)
-    <|> (string "UserNameError"     >> return UserNameError)
-    <|> (string "ShortStorage"      >> return ShortStorage)
+    <|> (string "PermissionError"   >> return PermissonError)
+    <|> (string "BalanceError"      >> return BalanceError)
+    <|> (string "NetworkError"      >> return NetworkError)
+    <|> (string "ConnectionRefused" >> return ConnectionRefused)
+    <|> (string "Unknown"           >> return Unknown)
+    <|> (string "Error"             >> return Error)
 
 -- | Parse each csv records
 -- Not really clean code..

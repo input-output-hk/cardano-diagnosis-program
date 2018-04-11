@@ -8,19 +8,19 @@ import Text.Blaze.Html5 (ToMarkup, toMarkup)
 import qualified Data.Text.Lazy as LT
 
 data ErrorCode =
-    Error
-  | Unknown
-  | ConnectionRefused
-  | NetworkError
-  | PermissonError
-  | BalanceError
-  | FileNotFound
-  | StaleLockFile
-  | TimeSync
-  | DBError
-  | UserNameError
-  | ShortStorage
-  deriving (Eq, Ord, Show)
+      ShortStorage
+    | UserNameError
+    | TimeSync
+    | FileNotFound
+    | StaleLockFile
+    | DBError
+    | PermissonError
+    | BalanceError
+    | NetworkError
+    | ConnectionRefused
+    | Unknown
+    | Error
+    deriving (Eq, Ord, Show)
 
 data Knowledge =
   Knowledge {
