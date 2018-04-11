@@ -5,8 +5,8 @@ module Types (
  , KnowledgeBase
 ) where
 
-import Text.Blaze.Html5 (ToMarkup, toMarkup)
-import qualified Data.Text.Lazy as LT
+import qualified Data.Text.Lazy   as LT
+import           Text.Blaze.Html5 (ToMarkup, toMarkup)
 
 data ErrorCode =
       ShortStorage

@@ -16,8 +16,8 @@ import qualified Data.Text.Lazy.Encoding         as LT
 
 import           Data.Attoparsec.Text.Lazy
 
-import Data.Time.Clock (UTCTime(..), getCurrentTime)
-import Data.Time.Calendar (showGregorian)
+import           Data.Time.Calendar              (showGregorian)
+import           Data.Time.Clock                 (UTCTime (..), getCurrentTime)
 
 import           Control.Monad.Reader
 import           Data.Map                        (Map)
@@ -65,11 +65,11 @@ readZippedPub path = do
 main :: IO ()
 main = do
     -- Todo: case on different files (plain log, unzipped, zip)
-    kbase <- setupKB knowledgeBaseFile                    -- Read & create knowledge base
+    kbase <- setupKB knowledgeBaseFile                       -- Read & create knowledge base
     (logFilePath: _)      <- getArgs
     zipMap <- readZippedPub logFilePath                      -- Read File
     putStrLn "Running analysis on log file"
-    let extractedLogs = Map.elems $ Map.take 5 zipMap   -- Extract selected logs
+    let extractedLogs = Map.elems $ Map.take 5 zipMap        -- Extract selected logs
         filteredKnownErrors = runReader (extractIssuesFromLogs extractedLogs) kbase -- Analyze logs
     currTime <- getCurrentTime
     let resultFilename = "result-" <> showGregorian (utctDay currTime) <> ".html"

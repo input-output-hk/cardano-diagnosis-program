@@ -20,6 +20,22 @@
         </div>
         <main class="container">
             <div class="list-group">
+                <div class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1 text-muted">
+                            Block data possibly corrupted
+                        </h5>
+                        <span class="badge badge-warning">
+                            DBError
+                        </span>
+                    </div>
+                    <p class="mb-1">
+                        To fix this issue, please delete the content of DB-1.0
+                    </p>
+                    <small class="text-muted">
+                        [node:ERROR:ThreadId 3] [2018-04-07 00:42:50.13 UTC] UnsuccessfulOperation &quot;c_rocksdb_open&quot; &quot;Corruption: Can&#39;t access /000915.sst: IO error: Can not get size for: C:\\Users\\User\\AppData\\Roaming\\Daedalus\\DB-1.0\\blocks\\index/000915.sst: \25351\23450\12373\12428\12383\12501\12449\12452\12523\12364\35211\12388\12363\12426\12414\12379\12435\12290\r\n\nCan&#39;t access /000912.sst: IO error: Can not get size for: C:\\Users\\User\\AppData\\Roaming\\Daedalus\\DB-1.0\\blocks\\index/000912.sst: \25351\23450\12373\12428\12383\12501\12449\12452\12523\12364\35211\12388\12363\12426\12414\12379\12435\12290\r\n\n&quot;
+                    </small>
+                </div>
             </div>
         </main>
     </body>
