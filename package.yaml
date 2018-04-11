@@ -36,6 +36,7 @@ dependencies:
 - vector
 - mtl
 - blaze-html
+- time
 
 library:
   source-dirs: src

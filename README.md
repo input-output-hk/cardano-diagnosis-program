@@ -48,8 +48,8 @@ WIP
 - [ ] Catch suspcious lines and report them
 - [ ] Create test cases
 - [ ] Use regex to catch errors more nicely
-- [ ] Create solution folder with list of solutions, when diagnosted, it reads the file and write it to somefile to provide solution
-- [ ] Provide solution based on locale
+- [ ] Find the way to parse text into html
+- [ ] Provide analysis based on locale
 
 ## Issue
 
