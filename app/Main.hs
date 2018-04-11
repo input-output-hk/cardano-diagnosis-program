@@ -72,6 +72,6 @@ main = do
         filteredKnownErrors = runReader (extractIssuesFromLogs extractedLogs) kbase -- Analyze logs
     currTime <- getCurrentTime
     let resultFilename = "result-" <> showGregorian (utctDay currTime) <> ".html"
-    writeFile resultFilename $ renderHtml $ generateReport2Html filteredKnownErrors
+    writeFile ("./result" <> resultFilename) $ renderHtml $ generateReport2Html filteredKnownErrors
     putStrLn $ "Analysis done successfully!! See " <> resultFilename
     -- Todo: generate different html based on the result

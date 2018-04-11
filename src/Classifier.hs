@@ -42,7 +42,7 @@ analyzeLine str = do
           if kErrorText `LT.isInfixOf` s
               then Just k
               else Nothing
-    return $ vFilterMaybe $ V.fromList $ Prelude.map (compareWithKnowledge str) kbase
+    return $ vFilterMaybe $ V.fromList $ compareWithKnowledge str <$> kbase
 
 -- | Filter out Nothing from list of Maybe a
 vFilterMaybe :: Vector (Maybe a) -> Vector a
