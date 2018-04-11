@@ -1,5 +1,5 @@
 "useless for the following reason","TimeSync","Your PC's time is out of sync","Sync your PC's time with internet time https://youtu.be/xPEKM3zcOaA"
-"DBMalformed","DBError","Local block data is corrupted","Delete content of DB-1.0"
+"DBMalformed","DBError","Local block data is corrupted","Delete the content of DB-1.0"
 "signalProcess: permission denied (Operation not permitted","StaleLockFile","Launching node without admin rights","Make sure to run Daedalus with admin rights"
 "No such file or directory","FileNotFound","File missing","Reinstall Daedalus"
 "resource exhausted (No space left on device)","ShortStorage","Not enough space on hard drive to store block data","Create more disk space"

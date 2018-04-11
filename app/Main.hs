@@ -3,7 +3,6 @@
 
 module Main where
 
-import           Data.Maybe                    (fromMaybe)
 import           Data.Monoid                   ((<>))
 import           GHC.Stack                     (HasCallStack)
 
@@ -23,7 +22,7 @@ import qualified Data.Map                      as Map
 import           Classifier                    (extractIssuesFromLogs)
 import           KnowledgebaseParser.CSVParser (parseKnowLedgeBase)
 import           Types                         (KnowledgeBase)
-import           GenerateReportHtml            (formatData, generateReport2Html)
+import           HtmlReportGenerator           (formatData, generateReport2Html)
 
 import           Text.Blaze.Html.Renderer.Pretty (renderHtml)
 
@@ -35,10 +34,6 @@ knowledgeBaseFile = "./knowledgebase/knowledge.csv"
 
 zLogFile :: FilePath
 zLogFile = "./logs/pub.zip"
-
--- This can be solved
-file2Lookup :: [FilePath]
-file2Lookup = map (\path -> "pub/" <> path) ["Daedalus.log","launcher","node.pub"]
 
 -- | Read knowledgebase csv file
 setupKB :: HasCallStack => FilePath -> IO KnowledgeBase
@@ -69,20 +64,13 @@ readZippedPub path = do
         Left e        -> error $ "Error occured: " <> e
         Right fileMap -> return fileMap
 
--- | Extract selected log file from the given map
-extractLogs :: Map FilePath LBS.ByteString -> [FilePath] -> [LBS.ByteString]
-extractLogs zipmap = map (extractLog zipmap)
-    where
-        extractLog :: Map FilePath LBS.ByteString -> FilePath -> LBS.ByteString
-        extractLog zipmaps path = fromMaybe (error $ "couldn't find the file: " <> path)
-                                            (Map.lookup path zipmaps)
-
 main :: IO ()
 main = do
+    -- Todo: case on different files (plain log, unzipped, zip)
     kbase <- setupKB knowledgeBaseFile                    -- Read & create knowledge base
     zipMap <- readZippedPub zLogFile                      -- Read File
-    let extractedLogs = extractLogs zipMap file2Lookup    -- Extract selected logs
+    let extractedLogs = Map.elems $ Map.take 5 zipMap   -- Extract selected logs
         filteredKnownErrors = runReader (extractIssuesFromLogs extractedLogs) kbase -- Analyze logs
         printableData = formatData filteredKnownErrors    -- Convert into readable format
     writeFile "result.html" $ renderHtml $ generateReport2Html printableData
-    -- Need to generate different html based on the result
+    -- Todo: generate different html based on the result

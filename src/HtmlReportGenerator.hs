@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module GenerateReportHtml (
+module HtmlReportGenerator (
     formatData
   , generateReport2Html
 ) where
