@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <title>
+            Cardano Log Classifier
+        </title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" title="CSS">
+    </head>
+    <body>
+        <div class="jumbotron bg-info text-white">
+            <div class="container">
+                <h1 class="display-4">
+                    Cardano Log Classifier
+                </h1>
+                <p class="lead">
+                    We&#39;ve successfully analyzed your log folder!
+                </p>
+            </div>
+        </div>
+        <main class="container">
+            <div class="list-group">
+                <div class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1 text-muted">
+                            Firewall is blocking the connection
+                        </h5>
+                    </div>
+                    <p class="mb-1">
+                        To fix this issue, please try other ISP provider
+                    </p>
+                    <span class="badge badge-warning">
+                        ConnectionRefused
+                    </span>
+                    <ul>
+                        <li class="text-muted">
+                            [node.worker.subscription:NOTICE:ThreadId 2576] [2018-04-10 09:36:12.11 UTC] subscriptionWorker: lost connection to NodeId 13.115.53.161:3000:0 Exceptional (TransportError SendFailed &quot;Network.Socket.recvBuf: failed (No error)&quot;)
+                        </li>
+                        <li class="text-muted">
+                            [node:ERROR:ThreadId 2546] [2018-04-10 09:36:10.02 UTC] EventConnectionLost received from the network layer: &quot;Network.Socket.recvBuf: failed (No error)&quot;
+                        </li>
+                        <li class="text-muted">
+                            [node.worker.subscription:NOTICE:ThreadId 592] [2018-04-11 01:42:54.83 UTC] subscriptionWorker: lost connection to NodeId 52.76.16.99:3000:0 Exceptional (TransportError SendFailed &quot;Network.Socket.recvBuf: failed (No error)&quot;)
+                        </li>
+                        <li class="text-muted">
+                            [node:ERROR:ThreadId 550] [2018-04-11 01:42:54.43 UTC] EventConnectionLost received from the network layer: &quot;Network.Socket.recvBuf: failed (No error)&quot;
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>

@@ -1,12 +1,16 @@
+{-# LANGUAGE FlexibleInstances #-}
+
 module Types (
    ErrorCode (..)
  , Knowledge (..)
- , Analysis  (..)
  , KnowledgeBase
+ , Analysis
 ) where
 
 import qualified Data.Text.Lazy   as LT
 import           Text.Blaze.Html5 (ToMarkup, toMarkup)
+
+import Data.Map (Map)
 
 -- Every error should have its unique errorcode
 data ErrorCode =
@@ -34,19 +38,13 @@ data Knowledge =
 
 type KnowledgeBase = [Knowledge]
 
-data Analysis =
-  Analysis {
-    aErrorCode :: !ErrorCode
-  , aProblem   :: !LT.Text
-  , aSolution  :: !LT.Text
-  , aErrorText :: !LT.Text
-  } deriving (Show)
-
-instance Eq Analysis where
-  a1 == a2 = aErrorCode a1 == aErrorCode a2
-
-instance Ord Analysis where
-  a1 <= a2 = aErrorCode a1 <= aErrorCode a2
+type Analysis = Map Knowledge [LT.Text]
 
 instance ToMarkup ErrorCode where
   toMarkup err = toMarkup $ show err
+
+instance Eq Knowledge where
+  e1 == e2 = kErrorCode e1 == kErrorCode e2
+
+instance Ord Knowledge where
+  e1 <= e2 = kErrorCode e1 <= kErrorCode e2

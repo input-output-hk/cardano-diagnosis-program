@@ -5,6 +5,7 @@ module Main where
 
 import           Data.Monoid                     ((<>))
 
+import Data.List (sort)
 import           GHC.Stack                       (HasCallStack)
 import           System.Environment              (getArgs)
 
@@ -19,14 +20,14 @@ import           Data.Attoparsec.Text.Lazy
 import           Data.Time.Calendar              (showGregorian)
 import           Data.Time.Clock                 (UTCTime (..), getCurrentTime)
 
-import           Control.Monad.Reader
+import           Control.Monad.State
 import           Data.Map                        (Map)
 import qualified Data.Map                        as Map
 
 import           Classifier                      (extractIssuesFromLogs)
 import           HtmlReportGenerator.Generator   (generateReport2Html)
 import           KnowledgebaseParser.CSVParser   (parseKnowLedgeBase)
-import           Types                           (KnowledgeBase)
+import           Types
 
 import           Text.Blaze.Html.Renderer.Pretty (renderHtml)
 
@@ -69,10 +70,11 @@ main = do
     (logFilePath: _)      <- getArgs
     zipMap <- readZippedPub logFilePath                      -- Read File
     putStrLn "Running analysis on log file"
-    let extractedLogs = Map.elems $ Map.take 5 zipMap        -- Extract selected logs
-        filteredKnownErrors = runReader (extractIssuesFromLogs extractedLogs) kbase -- Analyze logs
+    let analysis = Map.fromList $ foldr (\kn acc -> (kn, []) : acc) [] kbase
+        extractedLogs = Map.elems $ Map.take 5 zipMap        -- Extract selected logs
+        filteredKnownErrors = execState (extractIssuesFromLogs extractedLogs) analysis -- Analyze logs
     currTime <- getCurrentTime
     let resultFilename = "result-" <> showGregorian (utctDay currTime) <> ".html"
-    writeFile resultFilename $ renderHtml $ generateReport2Html filteredKnownErrors
+    writeFile resultFilename $ renderHtml $ generateReport2Html (sort $ Map.toList filteredKnownErrors)
     putStrLn $ "Analysis done successfully!! See " <> resultFilename
     -- Todo: generate different html based on the result
