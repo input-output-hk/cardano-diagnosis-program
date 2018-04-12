@@ -21,6 +21,8 @@ data ErrorCode =
     | StaleLockFile
     | DBError
     | PermissonError
+    | DBPath
+    | CannotGetDBSize
     | BalanceError
     | NetworkError
     | ConnectionRefused

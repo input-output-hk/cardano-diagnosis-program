@@ -23,27 +23,21 @@
                 <div class="list-group-item list-group-item-action flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1 text-muted">
-                            Firewall is blocking the connection
+                            Network error
                         </h5>
                     </div>
                     <p class="mb-1">
                         To fix this issue, please try other ISP provider
                     </p>
                     <span class="badge badge-warning">
-                        ConnectionRefused
+                        NetworkError
                     </span>
                     <ul>
                         <li class="text-muted">
-                            [node.worker.subscription:NOTICE:ThreadId 2576] [2018-04-10 09:36:12.11 UTC] subscriptionWorker: lost connection to NodeId 13.115.53.161:3000:0 Exceptional (TransportError SendFailed &quot;Network.Socket.recvBuf: failed (No error)&quot;)
+                            [95m[node.worker.subscription:NOTICE:ThreadId 580] [0m[2018-04-04 08:12:05.84 UTC] subscriptionWorker: lost connection to NodeId 52.198.18.45:3000:0 Exceptional (TransportError SendFailed &quot;Network.Socket.recvBuf: resource vanished (Connection reset by peer)&quot;)
                         </li>
                         <li class="text-muted">
-                            [node:ERROR:ThreadId 2546] [2018-04-10 09:36:10.02 UTC] EventConnectionLost received from the network layer: &quot;Network.Socket.recvBuf: failed (No error)&quot;
-                        </li>
-                        <li class="text-muted">
-                            [node.worker.subscription:NOTICE:ThreadId 592] [2018-04-11 01:42:54.83 UTC] subscriptionWorker: lost connection to NodeId 52.76.16.99:3000:0 Exceptional (TransportError SendFailed &quot;Network.Socket.recvBuf: failed (No error)&quot;)
-                        </li>
-                        <li class="text-muted">
-                            [node:ERROR:ThreadId 550] [2018-04-11 01:42:54.43 UTC] EventConnectionLost received from the network layer: &quot;Network.Socket.recvBuf: failed (No error)&quot;
+                            [91m[node:ERROR:ThreadId 550] [0m[2018-04-04 08:11:46.14 UTC] EventConnectionLost received from the network layer: &quot;Network.Socket.recvBuf: resource vanished (Connection reset by peer)&quot;
                         </li>
                     </ul>
                 </div>

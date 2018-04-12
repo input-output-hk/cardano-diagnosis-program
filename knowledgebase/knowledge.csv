@@ -9,3 +9,5 @@
 "IO error: Failed to create dir","UserNameError","User is using non-latin characters for username","To fix this issue, pleae change your PC's username using only latin-characters"
 "open.lock: Locked by","StaleLockFile","open.lock file is corrupted due to improper shutdown","In order to fix this, please delete open.lock file \n Win: win \n Mac: mac"
 "Network.Socket.recvBuf: failed (No error)","ConnectionRefused","Firewall is blocking the connection","To fix this issue, please try other ISP provider"
+"The system cannot find the file specified","DBPath","Daedalus cannot find certain files","Please contact support@iohk.io"
+"IO error: Can not get size for","CannotGetDBSize","Error message of Couidn't pack log files shows up","Please contact support@iohk.io"

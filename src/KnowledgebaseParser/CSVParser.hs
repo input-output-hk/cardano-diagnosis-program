@@ -39,6 +39,8 @@ parseErrorCode =
     <|> (string "TimeSync"          >> return TimeSync)
     <|> (string "FileNotFound"      >> return FileNotFound)
     <|> (string "StaleLockFile"     >> return StaleLockFile)
+    <|> (string "DBPath"            >> return DBPath)
+    <|> (string "CannotGetDBSize"   >> return CannotGetDBSize)
     <|> (string "DBError"           >> return DBError)
     <|> (string "PermissionError"   >> return PermissonError)
     <|> (string "BalanceError"      >> return BalanceError)

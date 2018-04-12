@@ -70,7 +70,7 @@ main = do
     (logFilePath: _)      <- getArgs
     zipMap <- readZippedPub logFilePath                      -- Read File
     putStrLn "Running analysis on log file"
-    let analysis = Map.fromList $ foldr (\kn acc -> (kn, []) : acc) [] kbase
+    let analysis = Map.fromList $ map (\kn -> (kn, [])) kbase
         extractedLogs = Map.elems $ Map.take 5 zipMap        -- Extract selected logs
         filteredKnownErrors = execState (extractIssuesFromLogs extractedLogs) analysis -- Analyze logs
     currTime <- getCurrentTime
