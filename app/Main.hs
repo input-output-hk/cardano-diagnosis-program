@@ -13,10 +13,7 @@ import qualified Codec.Archive.Zip               as Zip
 
 import qualified Data.ByteString.Lazy            as LBS
 
-import qualified Data.Text.Lazy.Encoding         as LT
-
-import           Data.Attoparsec.Text.Lazy
-
+import           Text.Blaze.Html.Renderer.Pretty (renderHtml)
 import           Data.Time.Calendar              (showGregorian)
 import           Data.Time.Clock                 (UTCTime (..), getCurrentTime)
 
@@ -26,22 +23,8 @@ import qualified Data.Map                        as Map
 
 import           Classifier                      (extractIssuesFromLogs)
 import           HtmlReportGenerator.Generator   (generateReport2Html)
-import           KnowledgebaseParser.CSVParser   (parseKnowLedgeBase)
-import           Types
 
-import           Text.Blaze.Html.Renderer.Pretty (renderHtml)
-
-knowledgeBaseFile :: FilePath
-knowledgeBaseFile = "./knowledgebase/knowledge.csv"
-
--- | Read knowledgebase csv file
-setupKB :: HasCallStack => FilePath -> IO KnowledgeBase
-setupKB path = do
-    kfile <- LBS.readFile path
-    let kb = parse parseKnowLedgeBase (LT.decodeUtf8 kfile)
-    case eitherResult kb of
-        Left e    -> error $ "File not found" <> e
-        Right res -> return res
+import           KBSetup                         (knowledgeBaseFile, setupKB)
 
 -- | Read zip file
 readZip :: LBS.ByteString -> Either String (Map FilePath LBS.ByteString)
@@ -65,7 +48,6 @@ readZippedPub path = do
 
 main :: IO ()
 main = do
-    -- Todo: case on different files (plain log, unzipped, zip)
     kbase <- setupKB knowledgeBaseFile                       -- Read & create knowledge base
     (logFilePath: _)      <- getArgs
     zipMap <- readZippedPub logFilePath                      -- Read File
