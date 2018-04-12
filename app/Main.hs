@@ -5,7 +5,7 @@ module Main where
 
 import           Data.Monoid                     ((<>))
 
-import Data.List (sort)
+import           Data.List                       (sort)
 import           GHC.Stack                       (HasCallStack)
 import           System.Environment              (getArgs)
 
@@ -13,9 +13,9 @@ import qualified Codec.Archive.Zip               as Zip
 
 import qualified Data.ByteString.Lazy            as LBS
 
-import           Text.Blaze.Html.Renderer.Pretty (renderHtml)
 import           Data.Time.Calendar              (showGregorian)
 import           Data.Time.Clock                 (UTCTime (..), getCurrentTime)
+import           Text.Blaze.Html.Renderer.Pretty (renderHtml)
 
 import           Control.Monad.State
 import           Data.Map                        (Map)
@@ -46,17 +46,29 @@ readZippedPub path = do
         Left e        -> error $ "Error occured: " <> e
         Right fileMap -> return fileMap
 
+-- | Extract log file of the given path
+extractLogFromZip :: FilePath -> IO [LBS.ByteString]
+extractLogFromZip path = do
+  zipMap <- readZippedPub path                             -- Read File
+  let extractedLogs = Map.elems $ Map.take 5 zipMap        -- Extract selected logs
+  return extractedLogs
+
+-- | Get log file from directory
+getLogsFromDirectory :: IO [LBS.ByteString]
+getLogsFromDirectory = undefined
+
 main :: IO ()
 main = do
     kbase <- setupKB knowledgeBaseFile                       -- Read & create knowledge base
-    (logFilePath: _)      <- getArgs
-    zipMap <- readZippedPub logFilePath                      -- Read File
-    putStrLn "Running analysis on log file"
+    args  <- getArgs
+    extractedLogs   <- case args of
+              (logFilePath: _) -> extractLogFromZip logFilePath
+              _                -> getLogsFromDirectory
+    putStrLn "Running analysis on logs"
     let analysis = Map.fromList $ map (\kn -> (kn, [])) kbase
-        extractedLogs = Map.elems $ Map.take 5 zipMap        -- Extract selected logs
-        filteredKnownErrors = execState (extractIssuesFromLogs extractedLogs) analysis -- Analyze logs
+        analysisResult = execState (extractIssuesFromLogs extractedLogs) analysis
     currTime <- getCurrentTime
     let resultFilename = "result-" <> showGregorian (utctDay currTime) <> ".html"
-    writeFile resultFilename $ renderHtml $ generateReport2Html (sort $ Map.toList filteredKnownErrors)
+    writeFile resultFilename $ renderHtml $ generateReport2Html (sort $ Map.toList analysisResult)
     putStrLn $ "Analysis done successfully!! See " <> resultFilename
     -- Todo: generate different html based on the result
