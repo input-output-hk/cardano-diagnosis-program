@@ -70,6 +70,7 @@ executable diagnosis
     , bytestring
     , cardano-diagnosis-program
     , containers
+    , directory
     , mtl
     , text
     , time

@@ -16,6 +16,7 @@ import           Data.Time.Calendar              (showGregorian)
 import           Data.Time.Clock                 (UTCTime (..), getCurrentTime)
 import           GHC.Stack                       (HasCallStack)
 import           System.Environment              (getArgs)
+import           System.Directory                (createDirectoryIfMissing)
 import           Text.Blaze.Html.Renderer.Pretty (renderHtml)
 
 import           Classifier                      (extractIssuesFromLogs)
@@ -78,6 +79,7 @@ main = do
     currTime <- getCurrentTime
     let analysisResult = execState (extractIssuesFromLogs extractedLogs) analysisEnv  -- Parse log files
         resultFilename = "result-" <> showGregorian (utctDay currTime) <> ".html"
+    createDirectoryIfMissing True "./result"
     writeFile ("./result/" <> resultFilename) $ renderHtml $ generateReport2Html (sort $ Map.toList analysisResult)
     putStrLn $ "Analysis done successfully!! See " <> resultFilename
     -- Todo: generate different html based on the result
