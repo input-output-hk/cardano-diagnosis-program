@@ -4,8 +4,6 @@ This is a diagnosis program for Cardano.
 
 ## How it works
 
-- Your log file does not contain any sensitive information so it's safe to read them.
-
 - Classifier will analyze given log file and try to identify the issue based on the knowledge base which is a csv file.
 
 - Because we're using an csv file instead of web APIs, you can analyze the logs offline which is a lot safer.
@@ -13,6 +11,8 @@ This is a diagnosis program for Cardano.
 - Also it scales very nicely since all you have to do is add a record when new issue is found.
 
 ## Before using
+
+- Your log file does not contain any sensitive information so it's safe to read them.
 
 - While you can use this with PC that has Daedalus installed, I'd highly recommend you to use this with an PC that does not have Daedalus and run it while offline for extra security.
 

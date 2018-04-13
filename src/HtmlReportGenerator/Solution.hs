@@ -49,8 +49,8 @@ renderTimeSync str =
     ol $ do
       li "Press Win+S"
       li "Type in Settings"
-      li "In Find a setting field type in Date"
-      li "Go to Date and time settings"
+      li "In 'Find a setting field' type in 'Date'"
+      li "Go to 'Date and time settings'"
       li "Press 'Additional date, time & regional settings'. New window will pop up"
       li "Press 'Set date and time'"
       li "Go to 'Internet time tab'"

@@ -1,4 +1,4 @@
-# Changelog for cardano-parser
+# Changelog for cardano-diagnosis-program
 
 ## Unreleased changes
 
