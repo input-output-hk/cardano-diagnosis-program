@@ -42,10 +42,10 @@ data Knowledge =
 type Analysis = Map Knowledge [LT.Text]
 
 instance ToMarkup ErrorCode where
-  toMarkup err = toMarkup $ show err
+    toMarkup err = toMarkup $ show err
 
 instance Eq Knowledge where
-  e1 == e2 = kErrorCode e1 == kErrorCode e2
+    e1 == e2 = kErrorCode e1 == kErrorCode e2
 
 instance Ord Knowledge where
-  e1 <= e2 = kErrorCode e1 <= kErrorCode e2
+    e1 <= e2 = kErrorCode e1 <= kErrorCode e2

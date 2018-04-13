@@ -16,19 +16,19 @@ import           Prelude                   hiding (takeWhile)
 -- |Take any string that is inside quotes
 insideQuotes :: Parser LT.Text
 insideQuotes =
-   LT.append <$> (LT.fromStrict <$> takeWhile (/= '"'))
-            <*> (LT.concat <$> many (LT.cons <$> dquotes <*> insideQuotes))
-   <?> "inside of double quotes"
-   where
+    LT.append <$> (LT.fromStrict <$> takeWhile (/= '"'))
+              <*> (LT.concat <$> many (LT.cons <$> dquotes <*> insideQuotes))
+    <?> "inside of double quotes"
+    where
       dquotes =
-         string "\"\"" >> return '"'
-         <?> "paired double quotes"
+        string "\"\"" >> return '"'
+        <?> "paired double quotes"
 
 -- | Parse quoted field
 quotedField :: Parser LT.Text
 quotedField =
-   char '"' *> insideQuotes <* char '"'
-   <?> "quoted field"
+    char '"' *> insideQuotes <* char '"'
+    <?> "quoted field"
 
 --- | Parse ErrorCode
 parseErrorCode :: Parser ErrorCode
