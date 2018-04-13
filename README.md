@@ -41,9 +41,9 @@ WIP
 - [x] Provide more descriptive solution
 - [x] Analyze Daedalus log file
 - [x] Pretty print the diagnosis
-- [ ] Find the way to facilitate the file execution
+- [x] Find the way to facilitate the file execution
+- [ ] Refactor coding style according to cardano-coding-style [here](https://github.com/input-output-hk/cardano-sl-style-guides/blob/master/haskell-style-guide.md)
 - [ ] Find Log file on current directory and analyze them
-- [ ] Run benchmark on lists vs vectors
 - [x] Use blaze-html to render out the output
 - [ ] Count the occurance of error
 - [x] Catch suspcious lines and report them
