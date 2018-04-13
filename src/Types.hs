@@ -11,7 +11,7 @@ import           Text.Blaze.Html5 (ToMarkup, toMarkup)
 
 import Data.Map (Map)
 
--- |Identifier for each error
+-- | Identifier for each error
 data ErrorCode =
       ShortStorage
     | UserNameError
@@ -29,15 +29,15 @@ data ErrorCode =
     | Error
     deriving (Eq, Ord, Show)
 
--- |Record identifying the issue
+-- | Record identifying the issue
 data Knowledge = Knowledge
-  {  kErrorText :: !LT.Text   -- ^ Text used for matching error lines
-  ,  kErrorCode :: !ErrorCode -- ^ Identity for error code
-  ,  kProblem   :: !LT.Text   -- ^ Text describing what is the problem
-  ,  kSolution  :: !LT.Text   -- ^ Text describing how to solve the issue
+  {  kErrorText :: !LT.Text    -- ^ Text used for matching error lines
+  ,  kErrorCode :: !ErrorCode  -- ^ Identity for error code
+  ,  kProblem   :: !LT.Text    -- ^ Text describing what is the problem
+  ,  kSolution  :: !LT.Text    -- ^ Text describing how to solve the issue
   }
 
--- |Map used to collect error lines
+-- | Map used to collect error lines
 type Analysis = Map Knowledge [LT.Text]
 
 instance ToMarkup ErrorCode where

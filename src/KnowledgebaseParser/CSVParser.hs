@@ -49,8 +49,7 @@ parseErrorCode =
     <|> (string "Error"             >> return Error)
 
 -- |Parse each csv records
--- Not really clean code..
-parseKnowledge :: Parser Knowledge
+parseKnowledge :: Parser Knowledge -- not really clean code..
 parseKnowledge = do
     e <- quotedField
     _ <- char ','

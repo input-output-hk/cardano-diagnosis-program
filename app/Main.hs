@@ -31,11 +31,11 @@ import           HtmlReportGenerator.Generator   (generateReport2Html)
 
 import Types
 
--- |Path to the knowledge base
+-- | Path to the knowledge base
 knowledgeBaseFile :: FilePath
 knowledgeBaseFile = "./knowledgebase/knowledge.csv"
 
--- |Read knowledgebase csv file and return analysis environment
+-- | Read knowledgebase csv file and return analysis environment
 setupAnalysisEnv :: HasCallStack => FilePath -> IO Analysis
 setupAnalysisEnv path = do
     kfile <- LBS.readFile path
@@ -47,7 +47,7 @@ setupAnalysisEnv path = do
 setAnalysis :: [Knowledge] -> Analysis
 setAnalysis kbase = Map.fromList $ map (\kn -> (kn, [])) kbase
 
--- |Read zip file
+-- | Read zip file
 readZip :: LBS.ByteString -> Either String (Map FilePath LBS.ByteString)
 readZip rawzip = case Zip.toArchiveOrFail rawzip of
     Left err      -> Left err
@@ -58,7 +58,7 @@ readZip rawzip = case Zip.toArchiveOrFail rawzip of
     handleEntry :: Zip.Entry -> (FilePath, LBS.ByteString)
     handleEntry entry = (Zip.eRelativePath entry, Zip.fromEntry entry)
 
--- |Read zip file
+-- | Read zip file
 readZippedPub :: HasCallStack => FilePath -> IO (Map FilePath LBS.ByteString)
 readZippedPub path = do
     file <- LBS.readFile path
@@ -67,14 +67,14 @@ readZippedPub path = do
         Left e        -> error $ "Error occured: " <> e
         Right fileMap -> return fileMap
 
--- |Extract log file of the given path
+-- | Extract log file from given zip file
 extractLogFromZip :: FilePath -> IO [LBS.ByteString]
 extractLogFromZip path = do
     zipMap <- readZippedPub path                             -- Read File
     let extractedLogs = Map.elems $ Map.take 5 zipMap        -- Extract selected logs
     return extractedLogs
 
--- |Get log file from directory
+-- | Get log file from directory
 getLogsFromDirectory :: IO [LBS.ByteString]
 getLogsFromDirectory = undefined
 
