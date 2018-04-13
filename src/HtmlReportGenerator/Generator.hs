@@ -47,7 +47,7 @@ renderHeader :: Html
 renderHeader =
     div ! A.class_ "jumbotron bg-info text-white" $
       div ! A.class_ "container" $ do
-        h1 ! A.class_ "display-4" $ "Cardano Log Classifier"
+        h1 ! A.class_ "display-4" $ "Cardano Log Parser"
         p ! A.class_ "lead" $ "We've successfully analyzed your log folder!"
 
 -- | Render help section
@@ -63,7 +63,7 @@ renderHelpSection =
 generateReport2Html :: [(Knowledge, [LT.Text])] -> Html
 generateReport2Html xs = docTypeHtml $ do
     head $ do
-      title "Cardano Log Classifier"
+      title "Cardano Log Parser"
       link ! A.href cssLink ! A.rel "stylesheet" ! A.type_ "text/css" ! A.title "CSS"
     body $ do
         renderHeader

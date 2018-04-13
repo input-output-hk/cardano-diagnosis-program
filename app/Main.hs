@@ -78,6 +78,6 @@ main = do
     currTime <- getCurrentTime
     let analysisResult = execState (extractIssuesFromLogs extractedLogs) analysisEnv  -- Parse log files
         resultFilename = "result-" <> showGregorian (utctDay currTime) <> ".html"
-    writeFile resultFilename $ renderHtml $ generateReport2Html (sort $ Map.toList analysisResult)
+    writeFile ("./result/" <> resultFilename) $ renderHtml $ generateReport2Html (sort $ Map.toList analysisResult)
     putStrLn $ "Analysis done successfully!! See " <> resultFilename
     -- Todo: generate different html based on the result

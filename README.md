@@ -1,12 +1,12 @@
-# cardano-log-parser
+# Cardano diagnosis program (DD)
 
-This is a log classifer for Cardano logs.
+This is a diagnosis program for Cardano.
 
 ## How it works
 
-- Classifier will analyze given log file and try to identify the issue based on the knowledge base which is a csv file.
-
 - Your log file does not contain any sensitive information so it's safe to read them.
+
+- Classifier will analyze given log file and try to identify the issue based on the knowledge base which is a csv file.
 
 - Because we're using an csv file instead of web APIs, you can analyze the logs offline which is a lot safer.
 
@@ -49,6 +49,7 @@ WIP
 - [x] Refactor coding style according to cardano-coding-style [here](https://github.com/input-output-hk/cardano-sl-style-guides/blob/master/haskell-style-guide.md)
 - [x] Use blaze-html to render out the output
 - [x] Collect any lines that is associated with known bugs
+- [x] Implement naive way of rendering solution in blaze html
 - [ ] Use pandoc to read text as markdown then convert into Html
 - [ ] Ask for permission to create github repo.
 - [ ] Find a way to access log file in stable way.
@@ -69,6 +70,6 @@ WIP
 
 - Release beta version before 1.2
 
-- Release decent version after Cardano 1.2 has been released (from end of May to early June).
+- Release improved version after Cardano 1.2 has been released (from end of May to early June).
 
-- Integrate similiar system to Daedalus (**eta Unknown. Maybe, possibly, hopefully.**). What I would say is that the functionality of this program is completely straight forward. You can probably implement this in any language.
+- Integrate similiar system to Daedalus (**eta Unknown. Maybe, possibly, hopefully.**). What I would say is that the functionality of this program is completely straight forward. You can probably implement this in any language (But haskell is the easiest)

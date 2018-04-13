@@ -11,8 +11,8 @@ import qualified Text.Blaze.Html5.Attributes as A
 
 import           Types                       (ErrorCode (..))
 
--- | This is temporal workaround for rendering solution
---this will probably be deprecated in the future version.
+-- | This is temporal workaround for rendering solutions
+--this will be deprecated in the future version.
 renderSolution :: ErrorCode -> LT.Text -> Html
 renderSolution TimeSync      t = renderTimeSync t
 renderSolution StaleLockFile t = renderStaleLockFile t
@@ -82,4 +82,5 @@ renderStaleLockFile str =
       li "On the Finder’s menu bar select 'Go'"
       li "Click 'Go to Finder…'"
       li "Type '~/Library/Application Support/Daedalus'"
+      li "Open 'Wallet-1.0' and delete file 'open.lock'"
       li "Start the application"
