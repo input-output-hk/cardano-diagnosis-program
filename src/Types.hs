@@ -7,10 +7,9 @@ module Types
        , Knowledge (..)
        ) where
 
+import           Data.Map         (Map)
 import qualified Data.Text.Lazy   as LT
 import           Text.Blaze.Html5 (ToMarkup, toMarkup)
-
-import           Data.Map         (Map)
 
 -- | Identifier for each error
 data ErrorCode =

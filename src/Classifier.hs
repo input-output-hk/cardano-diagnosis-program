@@ -6,14 +6,12 @@ module Classifier
        , runClassifiers
        ) where
 
+import           Control.Monad.State      (State, get, put, when)
 import qualified Data.ByteString.Lazy     as LBS
+import qualified Data.Map                 as Map
 import           Data.Text.Encoding.Error (ignore)
 import qualified Data.Text.Lazy           as LT
 import qualified Data.Text.Lazy.Encoding  as LT
-
-import           Control.Monad.State      (State, get, put, when)
-
-import qualified Data.Map                 as Map
 
 import           Types                    (Analysis, Knowledge (..))
 

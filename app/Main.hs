@@ -3,27 +3,20 @@
 
 module Main where
 
-import           Data.Monoid                     ((<>))
-
-import           Data.List                       (sort)
-import           GHC.Stack                       (HasCallStack)
-import           System.Environment              (getArgs)
-
 import qualified Codec.Archive.Zip               as Zip
-
+import           Control.Monad.State             (execState)
+import           Data.Attoparsec.Text.Lazy       (parse, eitherResult)
 import qualified Data.ByteString.Lazy            as LBS
-import qualified Data.Text.Lazy.Encoding         as LT
-
-import           Data.Time.Calendar              (showGregorian)
-import           Data.Time.Clock                 (UTCTime (..), getCurrentTime)
-import           Text.Blaze.Html.Renderer.Pretty (renderHtml)
-
+import           Data.List                       (sort)
 import           Data.Map                        (Map)
 import qualified Data.Map                        as Map
-
-import           Data.Attoparsec.Text.Lazy
-
-import           Control.Monad.State             (execState)
+import           Data.Monoid                     ((<>))
+import qualified Data.Text.Lazy.Encoding         as LT
+import           Data.Time.Calendar              (showGregorian)
+import           Data.Time.Clock                 (UTCTime (..), getCurrentTime)
+import           GHC.Stack                       (HasCallStack)
+import           System.Environment              (getArgs)
+import           Text.Blaze.Html.Renderer.Pretty (renderHtml)
 
 import           Classifier                      (extractIssuesFromLogs)
 import           HtmlReportGenerator.Generator   (generateReport2Html)

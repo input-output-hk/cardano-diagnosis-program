@@ -6,11 +6,10 @@ module KnowledgebaseParser.CSVParser
        ) where
 
 import           Control.Applicative
-
 import           Data.Attoparsec.Text.Lazy
 import qualified Data.Text.Lazy            as LT
 
-import           Types
+import           Types                     (ErrorCode(..), Knowledge(..))
 
 import           Prelude                   hiding (takeWhile)
 

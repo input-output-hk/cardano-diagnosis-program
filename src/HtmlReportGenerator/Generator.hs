@@ -6,13 +6,13 @@ module HtmlReportGenerator.Generator
          generateReport2Html
        ) where
 
+import qualified Data.Text.Lazy              as LT
 import           Text.Blaze.Html5
 import qualified Text.Blaze.Html5.Attributes as A
 
-import           Prelude                     hiding (div, head, span)
+import           Types                       (Knowledge(..))
 
-import qualified Data.Text.Lazy              as LT
-import           Types
+import           Prelude                     hiding (div, head, span)
 
 -- | Css link to the bootstrap stylesheet
 cssLink :: AttributeValue
