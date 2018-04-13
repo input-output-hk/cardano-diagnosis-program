@@ -33,8 +33,8 @@ analyzeLine :: LT.Text -> State Analysis ()
 analyzeLine str = do
     aMap <- get
     -- Todo: Think of clever ways of doing this
-    let ks = extractErrorTexts  $ Map.keys aMap
-    mapM_ (compareWithKnowledge str) ks
+    let keylists = extractErrorTexts  $ Map.keys aMap
+    mapM_ (compareWithKnowledge str) keylists
 
 -- |Extract errortext from knowledge
 extractErrorTexts :: [Knowledge] -> [(LT.Text, Knowledge)]

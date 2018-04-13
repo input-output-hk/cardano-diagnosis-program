@@ -30,9 +30,8 @@ data ErrorCode =
     deriving (Eq, Ord, Show)
 
 -- |Record identifying the issue
-data Knowledge =
-  Knowledge {
-     kErrorText :: !LT.Text   -- ^ Text used for matching error lines
+data Knowledge = Knowledge
+  {  kErrorText :: !LT.Text   -- ^ Text used for matching error lines
   ,  kErrorCode :: !ErrorCode -- ^ Identity for error code
   ,  kProblem   :: !LT.Text   -- ^ Text describing what is the problem
   ,  kSolution  :: !LT.Text   -- ^ Text describing how to solve the issue
