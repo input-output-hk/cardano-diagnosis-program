@@ -35,9 +35,9 @@ setupAnalysisEnv path = do
     case eitherResult kb of
         Left e    -> error $ "File not found" <> e
         Right res -> return $ setAnalysis res
-
-setAnalysis :: [Knowledge] -> Analysis
-setAnalysis kbase = Map.fromList $ map (\kn -> (kn, [])) kbase
+          where
+            setAnalysis :: [Knowledge] -> Analysis
+            setAnalysis kbase = Map.fromList $ map (\kn -> (kn, [])) kbase
 
 -- | Read zip file
 readZip :: LBS.ByteString -> Either String (Map FilePath LBS.ByteString)

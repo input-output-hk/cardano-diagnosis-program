@@ -12,8 +12,8 @@ import qualified Data.Text.Lazy   as LT
 import           Text.Blaze.Html5 (ToMarkup, toMarkup)
 
 -- | Identifier for each error
-data ErrorCode =
-      ShortStorage
+data ErrorCode 
+    = ShortStorage
     | UserNameError
     | TimeSync
     | FileNotFound
