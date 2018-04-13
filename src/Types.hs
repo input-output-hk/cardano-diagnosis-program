@@ -1,15 +1,16 @@
 {-# LANGUAGE FlexibleInstances #-}
 
-module Types (
-   ErrorCode (..)
- , Knowledge (..)
- , Analysis
-) where
+module Types
+       (
+         Analysis
+       , ErrorCode (..)
+       , Knowledge (..)
+       ) where
 
 import qualified Data.Text.Lazy   as LT
 import           Text.Blaze.Html5 (ToMarkup, toMarkup)
 
-import Data.Map (Map)
+import           Data.Map         (Map)
 
 -- | Identifier for each error
 data ErrorCode =

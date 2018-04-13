@@ -25,11 +25,10 @@ import           Data.Attoparsec.Text.Lazy
 
 import           Control.Monad.State             (execState)
 
-import           KnowledgebaseParser.CSVParser   (parseKnowLedgeBase)
 import           Classifier                      (extractIssuesFromLogs)
 import           HtmlReportGenerator.Generator   (generateReport2Html)
-
-import Types
+import           KnowledgebaseParser.CSVParser   (parseKnowLedgeBase)
+import           Types                           (Analysis, Knowledge)
 
 -- | Path to the knowledge base
 knowledgeBaseFile :: FilePath

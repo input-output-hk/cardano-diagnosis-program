@@ -1,17 +1,18 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards   #-}
 
-module HtmlReportGenerator.Generator (
-  generateReport2Html
-) where
+module HtmlReportGenerator.Generator
+       (
+         generateReport2Html
+       ) where
 
 import           Text.Blaze.Html5
 import qualified Text.Blaze.Html5.Attributes as A
 
 import           Prelude                     hiding (div, head, span)
 
+import qualified Data.Text.Lazy              as LT
 import           Types
-import qualified Data.Text.Lazy as LT
 
 -- | Css link to the bootstrap stylesheet
 cssLink :: AttributeValue

@@ -1,14 +1,15 @@
 {-# LANGUAGE RecordWildCards #-}
 
-module Classifier (
-      runClassifiers
-    , extractIssuesFromLogs
-    ) where
+module Classifier
+       (
+         extractIssuesFromLogs
+       , runClassifiers
+       ) where
 
+import qualified Data.ByteString.Lazy     as LBS
 import           Data.Text.Encoding.Error (ignore)
 import qualified Data.Text.Lazy           as LT
 import qualified Data.Text.Lazy.Encoding  as LT
-import qualified Data.ByteString.Lazy     as LBS
 
 import           Control.Monad.State      (State, get, put, when)
 
