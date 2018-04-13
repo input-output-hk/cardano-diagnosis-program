@@ -1,0 +1,313 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <title>
+            Cardano Log Classifier
+        </title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" title="CSS">
+    </head>
+    <body>
+        <div class="jumbotron bg-info text-white">
+            <div class="container">
+                <h1 class="display-4">
+                    Cardano Log Classifier
+                </h1>
+                <p class="lead">
+                    We&#39;ve successfully analyzed your log folder!
+                </p>
+            </div>
+        </div>
+        <main class="container">
+            <div class="some">
+                <div class="card flex-column border-dark mb-3">
+                    <div class="card-header">
+                        <span>
+                            Not enough space on hard drive to store block data
+                        </span>
+                        <span class="badge badge-warning">
+                            ShortStorage
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            To fix this, please create more disk space
+                        </p>
+                        <footer>
+                            <ul class="list-unstyled">
+                                <li class="text-muted">
+                                    &quot;resource exhausted (No space left on device)&quot;,&quot;ShortStorage&quot;,&quot;Not enough space on hard drive to store block data&quot;,&quot;To fix this, please create more disk space&quot;
+                                </li>
+                                <li class="text-muted">
+                                    &quot;resource exhausted (No space left on device)&quot;,&quot;ShortStorage&quot;,&quot;Not enough space on hard drive to store block data&quot;,&quot;Create more disk space&quot;
+                                </li>
+                                <li class="text-muted">
+                                    &quot;resource exhausted (No space left on device)&quot;,&quot;ShortStorage&quot;,&quot;Not enough space on hard drive to store block data&quot;,&quot;Create more disk space&quot;
+                                </li>
+                            </ul>
+                        </footer>
+                    </div>
+                </div>
+                <div class="card flex-column border-dark mb-3">
+                    <div class="card-header">
+                        <span>
+                            User is using non-latin characters for username
+                        </span>
+                        <span class="badge badge-warning">
+                            UserNameError
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            To fix this issue, pleae change your PC&#39;s username using only latin-characters
+                        </p>
+                        <footer>
+                            <ul class="list-unstyled">
+                                <li class="text-muted">
+                                    &quot;IO error: Failed to create dir&quot;,&quot;UserNameError&quot;,&quot;User is using non-latin characters for username&quot;,&quot;To fix this issue, pleae change your PC&#39;s username using only latin-characters&quot;
+                                </li>
+                                <li class="text-muted">
+                                    &quot;IO error: Failed to create dir&quot;,&quot;UserNameError&quot;,&quot;User is using non-latin characters for username&quot;,&quot;Change PC&#39;s username to latin-characters&quot;
+                                </li>
+                                <li class="text-muted">
+                                    &quot;IO error: Failed to create dir&quot;,&quot;UserNameError&quot;,&quot;User is using non-latin characters for username&quot;,&quot;Change PC&#39;s username to latin-characters&quot;
+                                </li>
+                            </ul>
+                        </footer>
+                    </div>
+                </div>
+                <div class="card flex-column border-dark mb-3">
+                    <div class="card-header">
+                        <span>
+                            Your PC&#39;s time is out of sync
+                        </span>
+                        <span class="badge badge-warning">
+                            TimeSync
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            To fix this issue, you&#39;ll need to sync your PC&#39;s time with internet time. For instrcutions, please look at: https://youtu.be/xPEKM3zcOaA
+                        </p>
+                        <footer>
+                            <ul class="list-unstyled">
+                                <li class="text-muted">
+                                    &quot;useless for the following reason&quot;,&quot;TimeSync&quot;,&quot;Your PC&#39;s time is out of sync&quot;,&quot;To fix this issue, you&#39;ll need to sync your PC&#39;s time with internet time. For instrcutions, please look at: https://youtu.be/xPEKM3zcOaA&quot;
+                                </li>
+                                <li class="text-muted">
+                                    &quot;useless for the following reason&quot;,&quot;TimeSync&quot;,&quot;Your PC&#39;s time is out of sync&quot;,&quot;Sync your PC&#39;s time with internet time https://youtu.be/xPEKM3zcOaA&quot;
+                                </li>
+                                <li class="text-muted">
+                                    &quot;useless for the following reason&quot;,&quot;TimeSync&quot;,&quot;Your PC&#39;s time is out of sync&quot;,&quot;Sync your PC&#39;s time with internet time https://youtu.be/xPEKM3zcOaA&quot;
+                                </li>
+                            </ul>
+                        </footer>
+                    </div>
+                </div>
+                <div class="card flex-column border-dark mb-3">
+                    <div class="card-header">
+                        <span>
+                            File missing
+                        </span>
+                        <span class="badge badge-warning">
+                            FileNotFound
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            Please reinstall Daedalus and run the application
+                        </p>
+                        <footer>
+                            <ul class="list-unstyled">
+                                <li class="text-muted">
+                                    &quot;No such file or directory&quot;,&quot;FileNotFound&quot;,&quot;File missing&quot;,&quot;Please reinstall Daedalus and run the application&quot;
+                                </li>
+                                <li class="text-muted">
+                                    &quot;No such file or directory&quot;,&quot;FileNotFound&quot;,&quot;File missing&quot;,&quot;Reinstall Daedalus&quot;
+                                </li>
+                                <li class="text-muted">
+                                    &quot;No such file or directory&quot;,&quot;FileNotFound&quot;,&quot;File missing&quot;,&quot;Reinstall Daedalus&quot;
+                                </li>
+                            </ul>
+                        </footer>
+                    </div>
+                </div>
+                <div class="card flex-column border-dark mb-3">
+                    <div class="card-header">
+                        <span>
+                            open.lock file is corrupted due to improper shutdown
+                        </span>
+                        <span class="badge badge-warning">
+                            StaleLockFile
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            In order to fix this, please delete open.lock file \n Win: win \n Mac: mac
+                        </p>
+                        <footer>
+                            <ul class="list-unstyled">
+                                <li class="text-muted">
+                                    &quot;open.lock: Locked by&quot;,&quot;StaleLockFile&quot;,&quot;open.lock file is corrupted due to improper shutdown&quot;,&quot;In order to fix this, please delete open.lock file \n Win: win \n Mac: mac&quot;
+                                </li>
+                                <li class="text-muted">
+                                    &quot;open.lock: Locked by&quot;,&quot;StaleLockFile&quot;,&quot;open.lock file is corrupted due to improper shutdown&quot;,&quot;Delete open.lock file&quot;
+                                </li>
+                                <li class="text-muted">
+                                    &quot;open.lock: Locked by&quot;,&quot;StaleLockFile&quot;,&quot;open.lock file is corrupted due to improper shutdown&quot;,&quot;Delete open.lock file&quot;
+                                </li>
+                            </ul>
+                        </footer>
+                    </div>
+                </div>
+                <div class="card flex-column border-dark mb-3">
+                    <div class="card-header">
+                        <span>
+                            Local block data is corrupted
+                        </span>
+                        <span class="badge badge-warning">
+                            DBError
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            To fix this issue, Please delete the content of DB-1.0
+                        </p>
+                        <footer>
+                            <ul class="list-unstyled">
+                                <li class="text-muted">
+                                    &quot;DBMalformed&quot;,&quot;DBError&quot;,&quot;Local block data is corrupted&quot;,&quot;To fix this issue, Please delete the content of DB-1.0&quot;
+                                </li>
+                                <li class="text-muted">
+                                    &quot;DBMalformed&quot;,&quot;DBError&quot;,&quot;Local block data is corrupted&quot;,&quot;Delete content of DB-1.0&quot;
+                                </li>
+                                <li class="text-muted">
+                                    &quot;DBMalformed&quot;,&quot;DBError&quot;,&quot;Local block data is corrupted&quot;,&quot;Delete content of DB-1.0&quot;
+                                </li>
+                            </ul>
+                        </footer>
+                    </div>
+                </div>
+                <div class="card flex-column border-dark mb-3">
+                    <div class="card-header">
+                        <span>
+                            Error message of Couidn&#39;t pack log files shows up
+                        </span>
+                        <span class="badge badge-warning">
+                            CannotGetDBSize
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            Please contact support@iohk.io
+                        </p>
+                        <footer>
+                            <ul class="list-unstyled">
+                                <li class="text-muted">
+                                    &quot;IO error: Can not get size for&quot;,&quot;DBError&quot;,&quot;Block data possibly corrupted&quot;,&quot;To fix this issue, please delete the content of DB-1.0&quot;
+                                </li>
+                                <li class="text-muted">
+                                    &quot;IO error: Can not get size for&quot;,&quot;DBError&quot;,&quot;Block data possibly corrupted&quot;,&quot;Delete the content of DB-1.0&quot;
+                                </li>
+                                <li class="text-muted">
+                                    &quot;IO error: Can not get size for&quot;,&quot;DBError&quot;,&quot;Block data possibly corrupted&quot;,&quot;Delete the content of DB-1.0&quot;
+                                </li>
+                            </ul>
+                        </footer>
+                    </div>
+                </div>
+                <div class="card flex-column border-dark mb-3">
+                    <div class="card-header">
+                        <span>
+                            Daedalus shows wrong Ada amount
+                        </span>
+                        <span class="badge badge-warning">
+                            BalanceError
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            Unfortunately, there&#39;s no workaround for this solution. Please report support@iohk.io immediately
+                        </p>
+                        <footer>
+                            <ul class="list-unstyled">
+                                <li class="text-muted">
+                                    &quot;irrelevant to given wallet&quot;,&quot;BalanceError&quot;,&quot;Daedalus shows wrong Ada amount&quot;,&quot;Unfortunately, there&#39;s no workaround for this solution. Please report support@iohk.io immediately&quot;
+                                </li>
+                                <li class="text-muted">
+                                    &quot;irrelevant to given wallet&quot;,&quot;BalanceError&quot;,&quot;Daedalus shows wrong Ada amount&quot;,&quot;Unknown, Contact IOHK&quot;
+                                </li>
+                                <li class="text-muted">
+                                    &quot;irrelevant to given wallet&quot;,&quot;BalanceError&quot;,&quot;Daedalus shows wrong Ada amount&quot;,&quot;Unknown, Contact IOHK&quot;
+                                </li>
+                            </ul>
+                        </footer>
+                    </div>
+                </div>
+                <div class="card flex-column border-dark mb-3">
+                    <div class="card-header">
+                        <span>
+                            Network error
+                        </span>
+                        <span class="badge badge-warning">
+                            NetworkError
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            To fix this issue, please try other ISP provider
+                        </p>
+                        <footer>
+                            <ul class="list-unstyled">
+                                <li class="text-muted">
+                                    &quot;Network.Socket.recvBuf: resource vanished&quot;,&quot;NetworkError&quot;,&quot;Network error&quot;,&quot;To fix this issue, please try other ISP provider&quot;
+                                </li>
+                                <li class="text-muted">
+                                    &quot;Network.Socket.recvBuf: resource vanished&quot;,&quot;NetworkError&quot;,&quot;Network error&quot;,&quot;Unknown, Contact IOHK&quot;
+                                </li>
+                                <li class="text-muted">
+                                    &quot;Network.Socket.recvBuf: resource vanished&quot;,&quot;NetworkError&quot;,&quot;Network error&quot;,&quot;Unknown, Contact IOHK&quot;
+                                </li>
+                            </ul>
+                        </footer>
+                    </div>
+                </div>
+                <div class="card flex-column border-dark mb-3">
+                    <div class="card-header">
+                        <span>
+                            Firewall is blocking the connection
+                        </span>
+                        <span class="badge badge-warning">
+                            ConnectionRefused
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            To fix this issue, please try other ISP provider
+                        </p>
+                        <footer>
+                            <ul class="list-unstyled">
+                                <li class="text-muted">
+                                    &quot;Network.Socket.recvBuf: failed (No error)&quot;,&quot;NetworkError&quot;,&quot;Firewall issue&quot;,&quot;To fix this issue, please change the ISP provider&quot;
+                                </li>
+                            </ul>
+                        </footer>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-5">
+                <div class="card-header">
+                    Is your issue solved?
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        If you still have issues, please contact us from button below
+                    </p>
+                    <a href="#" class="btn btn-primary">
+                        Go
+                    </a>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>
