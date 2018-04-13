@@ -7,14 +7,13 @@ module KnowledgebaseParser.CSVParser (
 import           Control.Applicative
 
 import           Data.Attoparsec.Text.Lazy
-
 import qualified Data.Text.Lazy            as LT
 
 import           Types
 
 import           Prelude                   hiding (takeWhile)
 
--- | Take any string that is inside quotes
+-- |Take any string that is inside quotes
 insideQuotes :: Parser LT.Text
 insideQuotes =
    LT.append <$> (LT.fromStrict <$> takeWhile (/= '"'))
@@ -49,7 +48,7 @@ parseErrorCode =
     <|> (string "Unknown"           >> return Unknown)
     <|> (string "Error"             >> return Error)
 
--- | Parse each csv records
+-- |Parse each csv records
 -- Not really clean code..
 parseKnowledge :: Parser Knowledge
 parseKnowledge = do
@@ -64,6 +63,6 @@ parseKnowledge = do
     s <- quotedField
     return $ Knowledge e c p s
 
--- | Parse CSV file and create knowledgebase
-parseKnowLedgeBase :: Parser KnowledgeBase
+-- |Parse CSV file and create knowledgebase
+parseKnowLedgeBase :: Parser [Knowledge]
 parseKnowLedgeBase = many $ parseKnowledge <* endOfLine
