@@ -11,6 +11,7 @@ import           Text.Blaze.Html5
 import qualified Text.Blaze.Html5.Attributes as A
 
 import           Types                       (Knowledge(..))
+import           HtmlReportGenerator.Solution (renderSolution)
 
 import           Prelude                     hiding (div, head, span)
 
@@ -32,7 +33,7 @@ renderAnalysis (Knowledge{..}, xs) =
         span $ toHtml kProblem
         span ! A.class_ "badge badge-warning" $ toHtml kErrorCode
       div ! A.class_ "card-body" $ do
-        p ! A.class_ "card-text" $ toHtml kSolution
+        renderSolution kErrorCode kSolution
         footer $
           ul ! A.class_ "list-unstyled" $
             mapM_ renderErrorText (take 10 xs)
@@ -42,13 +43,14 @@ renderErrorText :: LT.Text -> Html
 renderErrorText str = li ! A.class_ "text-muted" $ toHtml str
 
 -- | Render header
-jumbotron :: Html
-jumbotron =
+renderHeader :: Html
+renderHeader =
     div ! A.class_ "jumbotron bg-info text-white" $
       div ! A.class_ "container" $ do
         h1 ! A.class_ "display-4" $ "Cardano Log Classifier"
         p ! A.class_ "lead" $ "We've successfully analyzed your log folder!"
 
+-- | Render help section
 renderHelpSection :: Html
 renderHelpSection = 
     div ! A.class_ "card mb-5" $ do
@@ -64,7 +66,7 @@ generateReport2Html xs = docTypeHtml $ do
       title "Cardano Log Classifier"
       link ! A.href cssLink ! A.rel "stylesheet" ! A.type_ "text/css" ! A.title "CSS"
     body $ do
-        jumbotron
+        renderHeader
         main ! A.class_ "container" $ do
           renderAnalysisLists xs
           renderHelpSection
