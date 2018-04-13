@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <title>
+            Cardano Log Classifier
+        </title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" title="CSS">
+    </head>
+    <body>
+        <div class="jumbotron bg-info text-white">
+            <div class="container">
+                <h1 class="display-4">
+                    Cardano Log Classifier
+                </h1>
+                <p class="lead">
+                    We&#39;ve successfully analyzed your log folder!
+                </p>
+            </div>
+        </div>
+        <main class="container">
+            <div class="list-group">
+                <div class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1 text-muted">
+                            File missing
+                        </h5>
+                    </div>
+                    <p class="mb-1">
+                        Please reinstall Daedalus and run the application
+                    </p>
+                    <span class="badge badge-warning">
+                        FileNotFound
+                    </span>
+                    <ul>
+                        <li class="text-muted">
+                            [91m[node:ERROR:ThreadId 577] [0m[2018-04-02 08:35:14.32 UTC] Didn&#39;t manage to report RError &quot;Worker/plugin with logger name LoggerName {getLoggerName = \&quot;node\&quot;} failed with exception: /etc/resolv.conf: openFile: does not exist (No such file or directory)&quot; because of exception &#39;Failed to send a report, the exception was: HttpExceptionRequest Request {
+                        </li>
+                        <li class="text-muted">
+                            [91m[node:ERROR:ThreadId 577] [0m[2018-04-02 08:35:13.97 UTC] Reporting error with reason &quot;Worker/plugin with logger name LoggerName {getLoggerName = &quot;node&quot;} failed with exception: /etc/resolv.conf: openFile: does not exist (No such file or directory)&quot;
+                        </li>
+                    </ul>
+                </div>
+                <div class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1 text-muted">
+                            open.lock file is corrupted due to improper shutdown
+                        </h5>
+                    </div>
+                    <p class="mb-1">
+                        In order to fix this, please delete open.lock file \n Win: win \n Mac: mac
+                    </p>
+                    <span class="badge badge-warning">
+                        StaleLockFile
+                    </span>
+                    <ul>
+                        <li class="text-muted">
+                            [91m[node:ERROR:ThreadId 4] [0m[2018-04-05 17:28:16.68 UTC] /Users/fabrizio/Library/Application Support/Daedalus/Wallet-1.0/open.lock: Locked by 427: resource busy
+                        </li>
+                        <li class="text-muted">
+                            [91m[node:ERROR:ThreadId 4] [0m[2018-04-03 08:20:48.25 UTC] /Users/fabrizio/Library/Application Support/Daedalus/Wallet-1.0/open.lock: Locked by 427: resource busy
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>
