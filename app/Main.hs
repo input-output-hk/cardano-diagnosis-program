@@ -21,7 +21,7 @@ import           Text.Blaze.Html.Renderer.Pretty (renderHtml)
 import           Classifier                      (extractIssuesFromLogs)
 import           HtmlReportGenerator.Generator   (generateReport2Html)
 import           KnowledgebaseParser.CSVParser   (parseKnowLedgeBase)
-import           Types                           (Analysis, Knowledge)
+import           Types                           (Analysis, setupAnalysis)
 
 -- | Path to the knowledge base
 knowledgeBaseFile :: FilePath
@@ -34,10 +34,7 @@ setupAnalysisEnv path = do
     let kb = parse parseKnowLedgeBase (LT.decodeUtf8 kfile)
     case eitherResult kb of
         Left e    -> error $ "File not found" <> e
-        Right res -> return $ setAnalysis res
-          where
-            setAnalysis :: [Knowledge] -> Analysis
-            setAnalysis kbase = Map.fromList $ map (\kn -> (kn, [])) kbase
+        Right res -> return $ setupAnalysis res
 
 -- | Read zip file
 readZip :: LBS.ByteString -> Either String (Map FilePath LBS.ByteString)
@@ -72,14 +69,14 @@ getLogsFromDirectory = undefined
 
 main :: IO ()
 main = do
-    analysisEnv <- setupAnalysisEnv knowledgeBaseFile     -- Read & create knowledge base
+    analysisEnv <- setupAnalysisEnv knowledgeBaseFile  -- Read & create knowledge base
     args  <- getArgs
-    extractedLogs   <- case args of
+    extractedLogs   <- case args of                    -- Extract logs depending on the args
         (logFilePath: _) -> extractLogFromZip logFilePath
         _                -> getLogsFromDirectory
     putStrLn "Running analysis on logs"
     currTime <- getCurrentTime
-    let analysisResult = execState (extractIssuesFromLogs extractedLogs) analysisEnv
+    let analysisResult = execState (extractIssuesFromLogs extractedLogs) analysisEnv  -- Parse log files
         resultFilename = "result-" <> showGregorian (utctDay currTime) <> ".html"
     writeFile resultFilename $ renderHtml $ generateReport2Html (sort $ Map.toList analysisResult)
     putStrLn $ "Analysis done successfully!! See " <> resultFilename

@@ -5,9 +5,11 @@ module Types
          Analysis
        , ErrorCode (..)
        , Knowledge (..)
+       , setupAnalysis
        ) where
 
 import           Data.Map         (Map)
+import qualified Data.Map as Map
 import qualified Data.Text.Lazy   as LT
 import           Text.Blaze.Html5 (ToMarkup, toMarkup)
 
@@ -39,6 +41,9 @@ data Knowledge = Knowledge
 
 -- | Map used to collect error lines
 type Analysis = Map Knowledge [LT.Text]
+
+setupAnalysis :: [Knowledge] -> Analysis
+setupAnalysis kbase = Map.fromList $ map (\kn -> (kn, [])) kbase
 
 instance ToMarkup ErrorCode where
     toMarkup err = toMarkup $ show err
