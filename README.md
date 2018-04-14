@@ -72,6 +72,7 @@ You'll need a zipped/archived Cardano log folder then run the command below
 - [x] Collect any lines that is associated with known bugs
 - [x] Implement naive way of rendering solution in blaze html
 - [x] Ask for permission to create github repo.
+- [x] In `renderSolution`, hightlight ceratin keyword to make it more readable
 - [ ] Find a way to access log file in stable way.
 - [x] Put more description on Readme (plans)
 - [ ] Ask design team for css stylesheet
