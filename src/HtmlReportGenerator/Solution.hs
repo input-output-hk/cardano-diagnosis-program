@@ -5,8 +5,8 @@ module HtmlReportGenerator.Solution
          renderSolution
        ) where
 
+import           Data.Semigroup              ((<>))
 import qualified Data.Text.Lazy              as LT
-import Data.Semigroup ((<>))
 import           Text.Blaze.Html5
 import qualified Text.Blaze.Html5.Attributes as A
 
