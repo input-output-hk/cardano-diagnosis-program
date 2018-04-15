@@ -11,15 +11,16 @@ import           System.Info          (os)
 -- | WIP : Need to test them on each operating system
 extractLogsFromDirectory :: IO [LBS.ByteString]
 extractLogsFromDirectory = case os of
-                      "darwin"  -> extractLogFromMac
-                      "windows" -> extractLogFromWindows
-                      _         -> extractLogFromLinux
+                      "darwin"  -> extractLogOnMac
+                      "windows" -> extractLogOnWindows
+                      "linux"   -> extractLogOnLinux
+                      _         -> error $ "Unknown operating system: " <> os
 
 -- | Extract log file from mac
 --
 -- __/Users/shioihiroto/Library/Application Support/Daedalus/Logs/pub__
-extractLogFromMac :: HasCallStack => IO [LBS.ByteString]
-extractLogFromMac = do
+extractLogOnMac :: HasCallStack => IO [LBS.ByteString]
+extractLogOnMac = do
     home <- getHomeDirectory
     let path2Pub = home <> "/Library/Application Support/Daedalus/Logs/pub/"
     extractLogFiles path2Pub
@@ -27,23 +28,24 @@ extractLogFromMac = do
 -- | Extract log file from Windows
 --
 -- __/C:/Users/<user>/AppData/Roaming/<app>)__
-extractLogFromWindows :: HasCallStack => IO [LBS.ByteString]
-extractLogFromWindows = do
+extractLogOnWindows :: HasCallStack => IO [LBS.ByteString]
+extractLogOnWindows = do
     path2Pub <- getAppUserDataDirectory "Daedalus/Logs/pub/"
     extractLogFiles path2Pub
 
 -- | Extract log file from linux
 --
 -- __~/.local/share/Daedalus/mainnet/__
-extractLogFromLinux :: HasCallStack => IO [LBS.ByteString]
-extractLogFromLinux = do
+extractLogOnLinux :: HasCallStack => IO [LBS.ByteString]
+extractLogOnLinux = do
     let path2Pub = "~/.local/share/Daedalus/mainnet/Logs/pub"
     extractLogFiles path2Pub
 
 -- | Extract log file from Daedalus/Logs/pub
 extractLogFiles :: HasCallStack => FilePath -> IO [LBS.ByteString]
 extractLogFiles path2Pub = do
-    putStrLn $ "Given path is: " <> path2Pub
+    putStrLn $ "Diagnosis is running on " <> os
+    putStrLn $ "Path to pub folder is: " <> path2Pub
     doesExist <- doesDirectoryExist path2Pub
     if not doesExist
     then error "FilePath error: File does not exist"
