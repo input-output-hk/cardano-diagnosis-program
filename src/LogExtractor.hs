@@ -12,8 +12,8 @@ import           System.Info          (os)
 extractLogsFromDirectory :: IO [LBS.ByteString]
 extractLogsFromDirectory = case os of
                       "darwin"  -> extractLogOnMac
-                      "windows" -> extractLogOnWindows
                       "linux"   -> extractLogOnLinux
+                      "mingw32" -> extractLogOnWindows
                       _         -> error $ "Unknown operating system: " <> os
 
 -- | Extract log file from mac
@@ -38,7 +38,8 @@ extractLogOnWindows = do
 -- __~/.local/share/Daedalus/mainnet/__
 extractLogOnLinux :: HasCallStack => IO [LBS.ByteString]
 extractLogOnLinux = do
-    let path2Pub = "~/.local/share/Daedalus/mainnet/Logs/pub"
+    home <- getHomeDirectory
+    let path2Pub = home <> "/.local/share/Daedalus/mainnet/Logs/pub/"
     extractLogFiles path2Pub
 
 -- | Extract log file from Daedalus/Logs/pub
