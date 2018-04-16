@@ -43,21 +43,26 @@ renderErrorText :: LT.Text -> Html
 renderErrorText str = li ! A.class_ "text-muted" $ toHtml str
 
 -- | Render header
-renderHeader :: Html
-renderHeader =
-    div ! A.class_ "jumbotron bg-info text-white" $
-      div ! A.class_ "container" $ do
-        h1 ! A.class_ "display-4" $ "Cardano Diagnosis Program"
-        p ! A.class_ "lead" $ "We've successfully analyzed your log folder!"
+renderHeader :: [(Knowledge, [LT.Text])] -> Html
+renderHeader xs =
+    if xs /= [] 
+    then div ! A.class_ "jumbotron bg-info text-white" $
+          div ! A.class_ "container" $ do
+          h1 ! A.class_ "display-4" $ "Cardano Diagnosis Program"
+          p ! A.class_ "lead" $ "We've successfully analyzed your log folder!"
+    else div ! A.class_ "jumbotron bg-success text-white" $
+          div ! A.class_ "container" $ do
+          h1 ! A.class_ "display-4" $ "Cardano Diagnosis Program"
+          p ! A.class_ "lead" $ "No issue found!"
 
 -- | Render help section
 renderHelpSection :: Html
 renderHelpSection = 
     div ! A.class_ "card mb-5" $ do
-      div ! A.class_ "card-header" $ "Is your issue solved?"
+      div ! A.class_ "card-header" $ "Still having issues?"
       div ! A.class_ "card-body" $ do
-        p ! A.class_ "card-text" $ "If you still have issues, please contact us from button below"
-        a ! A.href "#" ! A.class_ "btn btn-primary" $ "Go"
+        p ! A.class_ "card-text" $ "If you are still having issues, please contact us from button below"
+        a ! A.href "https://daedaluswallet.io/faq/" ! A.class_ "btn btn-primary" $ "Go"
 
 -- | Takes lists of analysis and generate html as output
 generateReport2Html :: [(Knowledge, [LT.Text])] -> Html
@@ -66,7 +71,7 @@ generateReport2Html xs = docTypeHtml $ do
       title "Cardano Diagnosis Program"
       link ! A.href cssLink ! A.rel "stylesheet" ! A.type_ "text/css" ! A.title "CSS"
     body $ do
-        renderHeader
+        renderHeader xs
         main ! A.class_ "container" $ do
           renderAnalysisLists xs
           renderHelpSection
