@@ -41,10 +41,10 @@ parseErrorCode =
     <|> (string "DBPath"            >> return DBPath)
     <|> (string "CannotGetDBSize"   >> return CannotGetDBSize)
     <|> (string "DBError"           >> return DBError)
-    <|> (string "PermissionError"   >> return PermissonError)
     <|> (string "BalanceError"      >> return BalanceError)
     <|> (string "NetworkError"      >> return NetworkError)
     <|> (string "ConnectionRefused" >> return ConnectionRefused)
+    <|> (string "ResourceVanished"  >> return ResourceVanished)
     <|> (string "Unknown"           >> return Unknown)
     <|> (string "Error"             >> return Error)
 

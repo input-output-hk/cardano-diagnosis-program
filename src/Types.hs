@@ -21,12 +21,12 @@ data ErrorCode
     | FileNotFound
     | StaleLockFile
     | DBError
-    | PermissonError
     | DBPath
     | CannotGetDBSize
     | BalanceError
     | NetworkError
     | ConnectionRefused
+    | ResourceVanished
     | Unknown
     | Error
     deriving (Eq, Ord, Show)

@@ -3,7 +3,6 @@
 module Classifier
        (
          extractIssuesFromLogs
-       , runClassifiers
        ) where
 
 import           Control.Monad.State      (State, get, put)

@@ -1,4 +1,7 @@
-module LogExtractor where
+module LogExtractor
+       (
+         extractLogsFromDirectory
+       ) where
 
 import qualified Data.ByteString.Lazy as LBS
 import           Data.Monoid          ((<>))
@@ -18,7 +21,7 @@ extractLogsFromDirectory = case os of
 
 -- | Extract log file from mac
 --
--- __/Users/shioihiroto/Library/Application Support/Daedalus/Logs/pub__
+-- @ /Users/shioihiroto/Library/Application Support/Daedalus/Logs/pub
 extractLogOnMac :: HasCallStack => IO [LBS.ByteString]
 extractLogOnMac = do
     home <- getHomeDirectory
@@ -27,7 +30,7 @@ extractLogOnMac = do
 
 -- | Extract log file from Windows
 --
--- __/C:/Users/<user>/AppData/Roaming/<app>)__
+-- @ /C:/Users/<user>/AppData/Roaming/<app>/
 extractLogOnWindows :: HasCallStack => IO [LBS.ByteString]
 extractLogOnWindows = do
     path2Pub <- getAppUserDataDirectory "Daedalus/Logs/pub/"
@@ -35,7 +38,7 @@ extractLogOnWindows = do
 
 -- | Extract log file from linux
 --
--- __~/.local/share/Daedalus/mainnet/__
+-- @ /.local/share/Daedalus/mainnet/
 extractLogOnLinux :: HasCallStack => IO [LBS.ByteString]
 extractLogOnLinux = do
     home <- getHomeDirectory

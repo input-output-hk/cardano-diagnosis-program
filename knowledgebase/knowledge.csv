@@ -5,7 +5,7 @@
 "resource exhausted (No space left on device)","ShortStorage","Not enough space on hard drive to store block data","To fix this, please create more disk space on your computer"
 "returned empty list","NetworkError","Firewall is blocking the connection","To fix this issue, please try other ISP provider. If it does not fix it, please contact support@iohk.io"
 "irrelevant to given wallet","BalanceError","Daedalus shows wrong Ada amount","Unfortunately, there's no workaround for this solution. Please report support@iohk.io immediately"
-"Network.Socket.recvBuf: resource vanished","NetworkError","Network error","To fix this issue, please try other ISP provider. If it does not fix it, please contact support@iohk.io"
+"Network.Socket.recvBuf: resource vanished","ResourceVanished","Network error","To fix this issue, please try other ISP provider. If it does not fix it, please contact support@iohk.io"
 "IO error: Failed to create dir","UserNameError","User is using non-latin characters for username","To fix this issue, pleae change your PC's username using only latin-characters"
 "open.lock: Locked by","StaleLockFile","open.lock file is corrupted due to improper shutdown","The issue is that the application was improperly shutdown. As a workaround, you'll need to delete open.lock by following the instruction below."
 "Network.Socket.recvBuf: failed (No error)","ConnectionRefused","Firewall is blocking the connection","To fix this issue, please try other ISP provider"
