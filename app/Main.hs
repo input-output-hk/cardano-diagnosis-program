@@ -16,11 +16,11 @@ import           Data.Time.Calendar              (showGregorian)
 import           Data.Time.Clock                 (UTCTime (..), getCurrentTime)
 import           GHC.Stack                       (HasCallStack)
 import           System.Environment              (getArgs)
-import           System.Directory                (createDirectoryIfMissing)
+import           System.Directory                (createDirectoryIfMissing, doesPathExist)
 import           Text.Blaze.Html.Renderer.Pretty (renderHtml)
 
 import           Classifier                      (extractIssuesFromLogs)
-import           HtmlReportGenerator.Generator   (generateReport2Html)
+import           HtmlReportGenerator.Generator   (generateReport2Html, generateErrorReport)
 import           KnowledgebaseParser.CSVParser   (parseKnowLedgeBase)
 import           LogExtractor                    (extractLogsFromDirectory)
 import           Types                           (Analysis, setupAnalysis)
@@ -29,17 +29,24 @@ import           Types                           (Analysis, setupAnalysis)
 knowledgeBaseFile :: FilePath
 knowledgeBaseFile = "./knowledgebase/knowledge.csv"
 
+-- | Create error report
+handleError :: HasCallStack => String -> IO a
+handleError str = do
+    createDirectoryIfMissing True "./result"
+    writeFile "./result/error.html" $ renderHtml $ generateErrorReport str
+    error str
+
 -- | Read knowledgebase csv file and return analysis environment
 setupAnalysisEnv :: HasCallStack => FilePath -> IO Analysis
 setupAnalysisEnv path = do
     kfile <- LBS.readFile path
     let kb = parse parseKnowLedgeBase (LT.decodeUtf8 kfile)
     case eitherResult kb of
-        Left e    -> error $ "File not found" <> e
+        Left e    -> handleError $ "File not found" <> e
         Right res -> return $ setupAnalysis res
 
 -- | Read zip file
-readZip :: LBS.ByteString -> Either String (Map FilePath LBS.ByteString)
+readZip ::LBS.ByteString -> Either String (Map FilePath LBS.ByteString)
 readZip rawzip = case Zip.toArchiveOrFail rawzip of
     Left err      -> Left err
     Right archive -> Right $ finishProcessing archive
@@ -52,14 +59,18 @@ readZip rawzip = case Zip.toArchiveOrFail rawzip of
 -- | Read zip file
 readZippedPub :: HasCallStack => FilePath -> IO (Map FilePath LBS.ByteString)
 readZippedPub path = do
-    file <- LBS.readFile path
-    let zipMap = readZip file
-    case zipMap of
-        Left e        -> error $ "Error occured: " <> e
-        Right fileMap -> return fileMap
+    fileExist <- doesPathExist path
+    if fileExist
+      then do 
+        file <- LBS.readFile path
+        let zipMap = readZip file
+        case zipMap of
+            Left e        -> handleError $ "Error occured: " <> e
+            Right fileMap -> return fileMap
+      else handleError $ "File does not exist: " <> path
 
 -- | Extract log file from given zip file
-extractLogsFromZip :: FilePath -> IO [LBS.ByteString]
+extractLogsFromZip :: HasCallStack => FilePath -> IO [LBS.ByteString]
 extractLogsFromZip path = do
     zipMap <- readZippedPub path                             -- Read File
     let extractedLogs = Map.elems $ Map.take 5 zipMap        -- Extract selected logs
