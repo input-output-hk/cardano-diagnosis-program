@@ -11,7 +11,9 @@ import           System.Directory     (doesDirectoryExist,
                                        getHomeDirectory, listDirectory)
 import           System.Info          (os)
 
--- | WIP : Need to test them on each operating system
+-- | Extract log folder from Daedalus folder
+-- 
+-- WIP : Need to test them on each operating system
 extractLogsFromDirectory :: IO [LBS.ByteString]
 extractLogsFromDirectory = case os of
                       "darwin"  -> extractLogOnMac

@@ -14,7 +14,7 @@ import qualified Data.Text.Lazy.Encoding  as LT
 
 import           Types                    (Analysis, Knowledge (..))
 
--- | Run classifiers on each log file
+-- | Analyze each log file based on the knowlodgebases' data.
 extractIssuesFromLogs :: [LBS.ByteString] -> State Analysis ()
 extractIssuesFromLogs file = do
     mapM_ runClassifiers file
