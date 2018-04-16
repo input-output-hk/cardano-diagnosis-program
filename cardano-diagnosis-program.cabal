@@ -6,9 +6,9 @@
 
 name:           cardano-diagnosis-program
 version:        0.1.0.0
-description:    Please see the README on Github at <https://github.com/githubuser/cardano-diagnosis-program#readme>
-homepage:       https://github.com/githubuser/cardano-diagnosis-program#readme
-bug-reports:    https://github.com/githubuser/cardano-diagnosis-program/issues
+description:    Please see the README on Github at <https://github.com/input-output-hk/cardano-diagnosis-program#readme>
+homepage:       https://github.com/input-output-hk/cardano-diagnosis-program#readme
+bug-reports:    https://github.com/input-output-hk/cardano-diagnosis-program/issues
 author:         Hiroto Shioi
 maintainer:     hiroto.shioi@iohk.io
 copyright:      2018 Hiroto Shioi
@@ -40,6 +40,7 @@ library
     , blaze-html
     , bytestring
     , containers
+    , directory
     , mtl
     , text
   exposed-modules:
@@ -47,6 +48,7 @@ library
       HtmlReportGenerator.Generator
       HtmlReportGenerator.Solution
       KnowledgebaseParser.CSVParser
+      LogExtractor
       Types
   other-modules:
       Paths_cardano_diagnosis_program

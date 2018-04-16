@@ -81,6 +81,7 @@ generateReport2Html xs = docTypeHtml $ do
           renderAnalysisLists xs
           renderHelpSection
 
+-- | Generate error report (Used to indicate that analysis failed)
 generateErrorReport :: String -> Html
 generateErrorReport str = do
   head $ do

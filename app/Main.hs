@@ -22,6 +22,7 @@ import           Text.Blaze.Html.Renderer.Pretty (renderHtml)
 import           Classifier                      (extractIssuesFromLogs)
 import           HtmlReportGenerator.Generator   (generateReport2Html, generateErrorReport)
 import           KnowledgebaseParser.CSVParser   (parseKnowLedgeBase)
+import           LogExtractor                    (extractLogsFromDirectory)
 import           Types                           (Analysis, setupAnalysis)
 
 -- | Path to the knowledge base
@@ -69,23 +70,19 @@ readZippedPub path = do
       else handleError $ "File does not exist: " <> path
 
 -- | Extract log file from given zip file
-extractLogFromZip :: HasCallStack => FilePath -> IO [LBS.ByteString]
-extractLogFromZip path = do
+extractLogsFromZip :: HasCallStack => FilePath -> IO [LBS.ByteString]
+extractLogsFromZip path = do
     zipMap <- readZippedPub path                             -- Read File
     let extractedLogs = Map.elems $ Map.take 5 zipMap        -- Extract selected logs
     return extractedLogs
-
--- | Get log file from directory
-getLogsFromDirectory :: IO [LBS.ByteString]
-getLogsFromDirectory = undefined
 
 main :: IO ()
 main = do
     analysisEnv <- setupAnalysisEnv knowledgeBaseFile  -- Read & create knowledge base
     args  <- getArgs
     extractedLogs   <- case args of                    -- Extract logs depending on the args
-        (logFilePath: _) -> extractLogFromZip logFilePath
-        _                -> getLogsFromDirectory
+        (logFilePath: _) -> extractLogsFromZip logFilePath
+        _                -> extractLogsFromDirectory
     putStrLn "Running analysis on logs"
     currTime <- getCurrentTime
     let analysisResult = execState (extractIssuesFromLogs extractedLogs) analysisEnv  -- Parse log files
