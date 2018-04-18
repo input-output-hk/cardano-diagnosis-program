@@ -80,6 +80,7 @@ It worked on all the machine that I have, but I do still want more testing on it
 - [x] In `renderSolution`, hightlight ceratin keyword to make it more readable
 - [x] Find a way to access log file in stable way.
 - [x] Put more description on Readme (plans)
+- [x] Use safe-exception to handle exception
 - [ ] Ask design team for css stylesheet
 - [ ] Count the occurance of error
 - [ ] Create test cases

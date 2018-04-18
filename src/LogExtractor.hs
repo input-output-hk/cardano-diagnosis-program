@@ -3,6 +3,7 @@ module LogExtractor
          extractLogsFromDirectory
        ) where
 
+import           Control.Exception.Safe (throw)
 import qualified Data.ByteString.Lazy as LBS
 import           Data.Monoid          ((<>))
 import           GHC.Stack            (HasCallStack)
@@ -11,6 +12,7 @@ import           System.Directory     (doesDirectoryExist,
                                        getHomeDirectory, listDirectory)
 import           System.Info          (os)
 
+import           Exceptions
 -- | Extract log folder from Daedalus folder
 -- 
 -- WIP : Need to test them on each operating system
@@ -19,7 +21,7 @@ extractLogsFromDirectory = case os of
                       "darwin"  -> extractLogOnMac
                       "linux"   -> extractLogOnLinux
                       "mingw32" -> extractLogOnWindows
-                      _         -> error $ "Unknown operating system: " <> os
+                      _         -> throw $ UnknownOS os
 
 -- | Extract log file from mac
 --

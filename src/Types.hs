@@ -11,7 +11,6 @@ module Types
 import           Data.Map         (Map)
 import qualified Data.Map as Map
 import qualified Data.Text.Lazy   as LT
-import           Text.Blaze.Html5 (ToMarkup, toMarkup)
 
 -- | Identifier for each error
 data ErrorCode 
@@ -45,9 +44,6 @@ type Analysis = Map Knowledge [LT.Text]
 -- | Create initial analysis environment
 setupAnalysis :: [Knowledge] -> Analysis
 setupAnalysis kbase = Map.fromList $ map (\kn -> (kn, [])) kbase
-
-instance ToMarkup ErrorCode where
-    toMarkup err = toMarkup $ show err
 
 instance Eq Knowledge where
     e1 == e2 = kErrorCode e1 == kErrorCode e2

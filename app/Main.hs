@@ -4,6 +4,7 @@
 module Main where
 
 import qualified Codec.Archive.Zip               as Zip
+import           Control.Exception.Safe          (throw)
 import           Control.Monad.State             (execState)
 import           Data.Attoparsec.Text.Lazy       (parse, eitherResult)
 import qualified Data.ByteString.Lazy            as LBS
@@ -11,16 +12,15 @@ import           Data.List                       (sort)
 import           Data.Map                        (Map)
 import qualified Data.Map                        as Map
 import           Data.Monoid                     ((<>))
-import Data.Text (Text)
 import qualified Data.Text.Lazy.Encoding         as LT
 import           Data.Time.Calendar              (showGregorian)
 import           Data.Time.Clock                 (UTCTime (..), getCurrentTime)
-import           GHC.Stack                       (HasCallStack)
 import           System.Environment              (getArgs)
 import           System.Directory                (createDirectoryIfMissing, doesPathExist)
 import           Text.Blaze.Html.Renderer.Pretty (renderHtml)
 
 import           Classifier                      (extractIssuesFromLogs)
+import           Exceptions
 import           HtmlReportGenerator.Generator   (generateReport2Html, generateErrorReport)
 import           KnowledgebaseParser.CSVParser   (parseKnowLedgeBase)
 import           LogExtractor                    (extractLogsFromDirectory)
@@ -31,19 +31,19 @@ knowledgeBaseFile :: FilePath
 knowledgeBaseFile = "./knowledgebase/knowledge.csv"
 
 -- | Create error report
-handleError :: HasCallStack => String -> IO a
-handleError str = do
+handleError :: ExtractorException -> IO a
+handleError e = do
     createDirectoryIfMissing True "./result"
-    writeFile "./result/error.html" $ renderHtml $ generateErrorReport str
-    error str
+    writeFile "./result/error.html" $ renderHtml $ generateErrorReport e
+    throw e
 
 -- | Read knowledgebase csv file and return analysis environment
-setupAnalysisEnv :: HasCallStack => FilePath -> IO Analysis
+setupAnalysisEnv :: FilePath -> IO Analysis
 setupAnalysisEnv path = do
     kfile <- LBS.readFile path
     let kb = parse parseKnowLedgeBase (LT.decodeUtf8 kfile)
     case eitherResult kb of
-        Left e    -> handleError $ "File not found: " <> e
+        Left e    -> handleError $ FileNotFound e
         Right res -> return $ setupAnalysis res
 
 -- | Read zip file
@@ -58,7 +58,7 @@ readZip rawzip = case Zip.toArchiveOrFail rawzip of
     handleEntry entry = (Zip.eRelativePath entry, Zip.fromEntry entry)
 
 -- | Read zip file
-readZippedPub :: HasCallStack => FilePath -> IO (Map FilePath LBS.ByteString)
+readZippedPub :: FilePath -> IO (Map FilePath LBS.ByteString)
 readZippedPub path = do
     fileExist <- doesPathExist path
     if fileExist
@@ -66,12 +66,12 @@ readZippedPub path = do
         file <- LBS.readFile path
         let zipMap = readZip file
         case zipMap of
-            Left e        -> handleError $ "Error occured: " <> e
+            Left e        -> handleError $ FileNotFound e
             Right fileMap -> return fileMap
-      else handleError $ "File not found: " <> path
+      else handleError $ FileNotFound path
 
 -- | Extract log file from given zip file
-extractLogsFromZip :: HasCallStack => FilePath -> IO [LBS.ByteString]
+extractLogsFromZip :: FilePath -> IO [LBS.ByteString]
 extractLogsFromZip path = do
     zipMap <- readZippedPub path                             -- Read File
     let extractedLogs = Map.elems $ Map.take 5 zipMap        -- Extract selected logs
