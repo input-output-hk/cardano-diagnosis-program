@@ -11,6 +11,7 @@ import           Data.List                       (sort)
 import           Data.Map                        (Map)
 import qualified Data.Map                        as Map
 import           Data.Monoid                     ((<>))
+import Data.Text (Text)
 import qualified Data.Text.Lazy.Encoding         as LT
 import           Data.Time.Calendar              (showGregorian)
 import           Data.Time.Clock                 (UTCTime (..), getCurrentTime)
@@ -42,7 +43,7 @@ setupAnalysisEnv path = do
     kfile <- LBS.readFile path
     let kb = parse parseKnowLedgeBase (LT.decodeUtf8 kfile)
     case eitherResult kb of
-        Left e    -> handleError $ "File not found" <> e
+        Left e    -> handleError $ "File not found: " <> e
         Right res -> return $ setupAnalysis res
 
 -- | Read zip file
@@ -67,7 +68,7 @@ readZippedPub path = do
         case zipMap of
             Left e        -> handleError $ "Error occured: " <> e
             Right fileMap -> return fileMap
-      else handleError $ "File does not exist: " <> path
+      else handleError $ "File not found: " <> path
 
 -- | Extract log file from given zip file
 extractLogsFromZip :: HasCallStack => FilePath -> IO [LBS.ByteString]

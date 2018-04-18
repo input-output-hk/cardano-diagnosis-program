@@ -1,11 +1,14 @@
 # Cardano diagnosis program (DD)
 
-This is a diagnosis program for Cardano. 
-The goal of this program is to produce an diagnosis program for Cardano-SL that can be easily used by the end user.
+This is a diagnosis program for Cardano-SL. The goal of this program is to produce an diagnosis program for Cardano-SL that can be easily used by the end user.
+
+## What is this for
+
+This is for anyone who has issues with their Daedalus wallet and want to run diagnosis on it.
 
 ## How it works
 
-- Classifier will analyze given log file and try to identify the issue based on the knowledge base which is a csv file.
+- Progam will analyze given log file and try to identify the issue based on the knowledge base which is a csv file.
 
 - It then generates an static Html file which describes the issue of your node and provide possible solution to it.
 
@@ -17,9 +20,9 @@ The goal of this program is to produce an diagnosis program for Cardano-SL that 
 
 - Log file does not contain any sensitive information so it's safe to read them.
 
-- While you can use this with PC that has Daedalus installed, I'd highly recommend you to use this with an PC that does not have Daedalus and run it while offline for extra security.
+- I'd highly recommend you to run this while disconnected to the internet.
 
-- This is because the biggest threat for Daedalus user is someone releasing malicious log-classifier which will steal all the sensitive informations (i.e private keys, passwords).
+- This is because the biggest threat for Daedalus user is someone releasing malicious log-classifier which will steal all the sensitive informations (i.e private keys, passwords) and send it somewhere. Obviously, this program does not do such things.
 
 - All this program does is read log file, analyze it, then generate a html file, nothing else.
 
@@ -40,13 +43,15 @@ You'll need a zipped/archived Cardano log folder then run the command below
 
 ## Working environments
 
-- [ ] Windows
-- [ ] MacOS
-- [ ] Linux
+- [x] Windows
+- [x] MacOS
+- [x] Linux
+
+It worked on all the machine that I have, but I do still want more testing on it..
 
 ## Issue
 
-- I'd have to admit, the analysis is not done in nice way (close to brute forcing the logs). This is causing performance issues. If there's anyone who has knowledge of haskell, please take a look at `Classifiers.hs`
+- I'd have to admit, the analysis is not done in nice way (close to brute forcing the logs). This is causing performance issues. If there's anyone who has knowledge of haskell, please take a look at `Classifier.hs`
 
 ## Future plans
 
@@ -73,10 +78,10 @@ You'll need a zipped/archived Cardano log folder then run the command below
 - [x] Implement naive way of rendering solution in blaze html
 - [x] Ask for permission to create github repo.
 - [x] In `renderSolution`, hightlight ceratin keyword to make it more readable
-- [ ] Find a way to access log file in stable way.
+- [x] Find a way to access log file in stable way.
 - [x] Put more description on Readme (plans)
 - [ ] Ask design team for css stylesheet
 - [ ] Count the occurance of error
 - [ ] Create test cases
 - [ ] Use regex to catch errors more nicely
-- [ ] Provide analysis based on locale
+- [ ] Provide analysis result based on locale
