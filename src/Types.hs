@@ -8,13 +8,12 @@ module Types
        , setupAnalysis
        ) where
 
-import           Data.Map         (Map)
-import qualified Data.Map as Map
-import qualified Data.Text.Lazy   as LT
-import           Text.Blaze.Html5 (ToMarkup, toMarkup)
+import           Data.Map       (Map)
+import qualified Data.Map       as Map
+import qualified Data.Text.Lazy as LT
 
 -- | Identifier for each error
-data ErrorCode 
+data ErrorCode
     = ShortStorage      -- ^ Not enough space on hard drive to store block data
     | UserNameError     -- ^ User is using non-latin characters for username
     | TimeSync          -- ^ User's PC's time is out of sync
@@ -45,9 +44,6 @@ type Analysis = Map Knowledge [LT.Text]
 -- | Create initial analysis environment
 setupAnalysis :: [Knowledge] -> Analysis
 setupAnalysis kbase = Map.fromList $ map (\kn -> (kn, [])) kbase
-
-instance ToMarkup ErrorCode where
-    toMarkup err = toMarkup $ show err
 
 instance Eq Knowledge where
     e1 == e2 = kErrorCode e1 == kErrorCode e2

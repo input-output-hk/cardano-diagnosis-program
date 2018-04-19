@@ -11,10 +11,22 @@ import qualified Data.Text.Lazy               as LT
 import           Text.Blaze.Html5
 import qualified Text.Blaze.Html5.Attributes  as A
 
+import           Exceptions
 import           HtmlReportGenerator.Solution (renderSolution)
-import           Types                        (Knowledge (..))
+import           Types                        (ErrorCode, Knowledge (..))
 
 import           Prelude                      hiding (div, head, span)
+
+-- Create ToMarkup instance for ExtractorException and ErrorCode
+newtype HtmlException = HtmlException ExtractorException
+
+instance ToMarkup HtmlException where
+    toMarkup (HtmlException err) = toMarkup $ show err
+
+newtype HtmlErrorCode = HtmlErrorCode ErrorCode
+
+instance ToMarkup HtmlErrorCode where
+    toMarkup (HtmlErrorCode err) = toMarkup $ show err
 
 -- | Css link to the bootstrap stylesheet
 cssLink :: AttributeValue
@@ -35,7 +47,7 @@ renderAnalysis (Knowledge{..}, xs) =
     div ! A.class_ "card flex-column border-dark mb-3" $ do
       div ! A.class_ "card-header" $ do
         span $ toHtml kProblem
-        span ! A.class_ "badge badge-warning" $ toHtml kErrorCode
+        span ! A.class_ "badge badge-warning" $ toHtml (HtmlErrorCode kErrorCode)
       div ! A.class_ "card-body" $ do
         renderSolution kErrorCode kSolution
         footer $
@@ -82,20 +94,20 @@ generateReport2Html xs = docTypeHtml $ do
           renderHelpSection
 
 -- | Generate error report (Used to indicate that analysis failed)
-generateErrorReport :: String -> Html
-generateErrorReport str = do
+generateErrorReport :: ExtractorException -> Html
+generateErrorReport e = do
   head $ do
     title "Cardano Diagnosis Program"
     link ! A.href cssLink ! A.rel "stylesheet" ! A.type_ "text/css" ! A.title "CSS"
   body $ do
-    renderErrorHeader str
+    renderErrorHeader e
     main ! A.class_ "container" $
       renderHelpSection
 
-renderErrorHeader :: String -> Html
-renderErrorHeader str =
+renderErrorHeader :: ExtractorException -> Html
+renderErrorHeader e =
   div ! A.class_ "jumbotron bg-warning" $
     div ! A.class_ "container" $ do
       headerTitle
       p ! A.class_ "lead" $ "Something went wrong while analyzing the log file: "
-      p ! A.class_ "lead" $ toHtml str
+      p ! A.class_ "lead" $ toHtml (HtmlException e)
