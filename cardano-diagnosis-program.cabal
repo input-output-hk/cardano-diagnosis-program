@@ -49,7 +49,6 @@ library
       HtmlReportGenerator.Generator
       HtmlReportGenerator.Solution
       KnowledgebaseParser.CSVParser
-      LogExtractor
       Types
       Exceptions
   other-modules:

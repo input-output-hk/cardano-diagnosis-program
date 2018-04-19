@@ -16,14 +16,14 @@ import qualified Data.Text.Lazy.Encoding         as LT
 import           Data.Time.Calendar              (showGregorian)
 import           Data.Time.Clock                 (UTCTime (..), getCurrentTime)
 import           System.Environment              (getArgs)
-import           System.Directory                (createDirectoryIfMissing, doesPathExist)
+import           System.Directory
+import           System.Info                     (os)
 import           Text.Blaze.Html.Renderer.Pretty (renderHtml)
 
 import           Classifier                      (extractIssuesFromLogs)
 import           Exceptions
 import           HtmlReportGenerator.Generator   (generateReport2Html, generateErrorReport)
 import           KnowledgebaseParser.CSVParser   (parseKnowLedgeBase)
-import           LogExtractor                    (extractLogsFromDirectory)
 import           Types                           (Analysis, setupAnalysis)
 
 -- | Path to the knowledge base
@@ -77,6 +77,52 @@ extractLogsFromZip path = do
     let extractedLogs = Map.elems $ Map.take 5 zipMap        -- Extract selected logs
     return extractedLogs
 
+-- | Get filepath to pub folder depending on the operating system
+getFilePath2Pub :: IO FilePath
+getFilePath2Pub = case os of
+            "darwin"  -> getPathOnMac
+            "linux"   -> getPathOnLinux
+            "mingw32" -> getPathOnWindows
+            _         -> handleError $ UnknownOS os
+
+-- | Extract log file from mac
+--
+-- @ /Users/shioihiroto/Library/Application Support/Daedalus/Logs/pub
+getPathOnMac :: IO FilePath
+getPathOnMac = do
+    home <- getHomeDirectory
+    let path2Pub = home <> "/Library/Application Support/Daedalus/Logs/pub/"
+    return path2Pub
+
+-- | Extract log file from Windows
+--
+-- @ /C:/Users/<user>/AppData/Roaming/<app>/
+getPathOnWindows :: IO FilePath
+getPathOnWindows = getAppUserDataDirectory "Daedalus/Logs/pub/"
+
+-- | Extract log file from linux
+--
+-- @ /.local/share/Daedalus/mainnet/
+getPathOnLinux :: IO FilePath
+getPathOnLinux = do
+    home <- getHomeDirectory
+    let path2Pub = home <> "/.local/share/Daedalus/mainnet/Logs/pub/"
+    return path2Pub
+
+-- | Extract log file from Daedalus/Logs/pub
+extractLogsFromDirectory :: IO [LBS.ByteString]
+extractLogsFromDirectory = do
+    path2Pub <- getFilePath2Pub
+    putStrLn $ "Diagnosis is running on " <> os
+    putStrLn $ "Path to pub folder is: " <> path2Pub
+    doesExist <- doesDirectoryExist path2Pub
+    if not doesExist
+    then handleError $ DirectoryNotFound path2Pub
+    else do
+      fileList <- listDirectory path2Pub
+      let logFiles = map (\file -> path2Pub ++ file) (take 5 $ filter (/= ".DS_Store") fileList)
+      mapM LBS.readFile logFiles
+
 main :: IO ()
 main = do
     analysisEnv <- setupAnalysisEnv knowledgeBaseFile  -- Read & create knowledge base
@@ -91,4 +137,3 @@ main = do
     createDirectoryIfMissing True "./result"
     writeFile ("./result/" <> resultFilename) $ renderHtml $ generateReport2Html (sort $ Map.toList analysisResult)
     putStrLn $ "Analysis done successfully!! See " <> resultFilename
-    -- Todo: generate different html based on the result
