@@ -81,6 +81,8 @@ It worked on all the machine that I have, but I do still want more testing on it
 - [x] Find a way to access log file in stable way.
 - [x] Put more description on Readme (plans)
 - [x] Use safe-exception to handle exception
+- [x] Change Debugger so that No Error and Unknown Error have different output.
+- [x] Create bash script for setting up the executable
 - [ ] Ask design team for css stylesheet
 - [ ] Count the occurance of error
 - [ ] Create test cases
