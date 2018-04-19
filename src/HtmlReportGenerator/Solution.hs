@@ -13,7 +13,7 @@ import qualified Text.Blaze.Html5.Attributes as A
 import           Types                       (ErrorCode (..))
 
 -- | Render solution section of the generated report
--- 
+--
 -- This is temporal workaround for rendering solutions
 --this will be deprecated in the future version.
 renderSolution :: ErrorCode -> LT.Text -> Html

@@ -6,7 +6,7 @@ module Main where
 import qualified Codec.Archive.Zip               as Zip
 import           Control.Exception.Safe          (throw)
 import           Control.Monad.State             (execState)
-import           Data.Attoparsec.Text.Lazy       (parse, eitherResult)
+import           Data.Attoparsec.Text.Lazy       (eitherResult, parse)
 import qualified Data.ByteString.Lazy            as LBS
 import           Data.List                       (sort)
 import           Data.Map                        (Map)
@@ -15,14 +15,20 @@ import           Data.Monoid                     ((<>))
 import qualified Data.Text.Lazy.Encoding         as LT
 import           Data.Time.Calendar              (showGregorian)
 import           Data.Time.Clock                 (UTCTime (..), getCurrentTime)
+import           System.Directory                (createDirectoryIfMissing,
+                                                  doesDirectoryExist,
+                                                  doesPathExist,
+                                                  getAppUserDataDirectory,
+                                                  getHomeDirectory,
+                                                  listDirectory)
 import           System.Environment              (getArgs)
-import           System.Directory
 import           System.Info                     (os)
 import           Text.Blaze.Html.Renderer.Pretty (renderHtml)
 
 import           Classifier                      (extractIssuesFromLogs)
 import           Exceptions
-import           HtmlReportGenerator.Generator   (generateReport2Html, generateErrorReport)
+import           HtmlReportGenerator.Generator   (generateErrorReport,
+                                                  generateReport2Html)
 import           KnowledgebaseParser.CSVParser   (parseKnowLedgeBase)
 import           Types                           (Analysis, setupAnalysis)
 
@@ -62,7 +68,7 @@ readZippedPub :: FilePath -> IO (Map FilePath LBS.ByteString)
 readZippedPub path = do
     fileExist <- doesPathExist path
     if fileExist
-      then do 
+      then do
         file <- LBS.readFile path
         let zipMap = readZip file
         case zipMap of

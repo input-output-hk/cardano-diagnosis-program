@@ -13,7 +13,7 @@ import qualified Text.Blaze.Html5.Attributes  as A
 
 import           Exceptions
 import           HtmlReportGenerator.Solution (renderSolution)
-import           Types                        (Knowledge (..), ErrorCode)
+import           Types                        (ErrorCode, Knowledge (..))
 
 import           Prelude                      hiding (div, head, span)
 
