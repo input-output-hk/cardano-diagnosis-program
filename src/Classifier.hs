@@ -5,9 +5,8 @@ module Classifier
          extractIssuesFromLogs
        ) where
 
-
 import qualified Data.ByteString.Lazy     as LBS
-import qualified Data.Map                 as Map
+import qualified Data.Map.Strict          as Map
 import           Data.Text.Encoding.Error (ignore)
 import qualified Data.Text.Lazy           as LT
 import qualified Data.Text.Lazy.Encoding  as LT

@@ -1,4 +1,3 @@
-
 module Exceptions where
 
 import           Control.Exception.Safe

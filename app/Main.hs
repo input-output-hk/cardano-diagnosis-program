@@ -8,8 +8,8 @@ import           Control.Exception.Safe          (throw)
 import           Data.Attoparsec.Text.Lazy       (eitherResult, parse)
 import qualified Data.ByteString.Lazy            as LBS
 import           Data.List                       (sort)
-import           Data.Map                        (Map)
-import qualified Data.Map                        as Map
+import           Data.Map.Strict                 (Map)
+import qualified Data.Map.Strict                 as Map
 import           Data.Monoid                     ((<>))
 import qualified Data.Text.Lazy.Encoding         as LT
 import           Data.Time.Calendar              (showGregorian)

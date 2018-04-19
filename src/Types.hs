@@ -8,9 +8,9 @@ module Types
        , setupAnalysis
        ) where
 
-import           Data.Map       (Map)
-import qualified Data.Map       as Map
-import qualified Data.Text.Lazy as LT
+import           Data.Map.Strict       (Map)
+import qualified Data.Map.Strict       as Map
+import qualified Data.Text.Lazy        as LT
 
 -- | Identifier for each error
 data ErrorCode
