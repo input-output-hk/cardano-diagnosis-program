@@ -5,7 +5,6 @@ module Main where
 
 import qualified Codec.Archive.Zip               as Zip
 import           Control.Exception.Safe          (throw)
-import           Control.Monad.State             (execState)
 import           Data.Attoparsec.Text.Lazy       (eitherResult, parse)
 import qualified Data.ByteString.Lazy            as LBS
 import           Data.List                       (sort)
@@ -138,7 +137,7 @@ main = do
         _                -> extractLogsFromDirectory
     putStrLn "Running analysis on logs"
     currTime <- getCurrentTime
-    let analysisResult = execState (extractIssuesFromLogs extractedLogs) analysisEnv  -- Parse log files
+    let analysisResult = extractIssuesFromLogs extractedLogs analysisEnv  -- Parse log files
         resultFilename = "result-" <> showGregorian (utctDay currTime) <> ".html"
     createDirectoryIfMissing True "./result"
     writeFile ("./result/" <> resultFilename) $ renderHtml $ generateReport2Html (sort $ Map.toList analysisResult)
