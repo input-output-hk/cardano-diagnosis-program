@@ -5,12 +5,11 @@ module Main where
 
 import qualified Codec.Archive.Zip               as Zip
 import           Control.Exception.Safe          (throw)
-import           Control.Monad.State             (execState)
 import           Data.Attoparsec.Text.Lazy       (eitherResult, parse)
 import qualified Data.ByteString.Lazy            as LBS
 import           Data.List                       (sort)
-import           Data.Map                        (Map)
-import qualified Data.Map                        as Map
+import           Data.Map.Strict                 (Map)
+import qualified Data.Map.Strict                 as Map
 import           Data.Monoid                     ((<>))
 import qualified Data.Text.Lazy.Encoding         as LT
 import           Data.Time.Calendar              (showGregorian)
@@ -77,10 +76,10 @@ readZippedPub path = do
       else handleError $ FileNotFound path
 
 -- | Extract log file from given zip file
-extractLogsFromZip :: FilePath -> IO [LBS.ByteString]
-extractLogsFromZip path = do
+extractLogsFromZip :: Int -> FilePath -> IO [LBS.ByteString]
+extractLogsFromZip numberOfFiles path = do
     zipMap <- readZippedPub path                             -- Read File
-    let extractedLogs = Map.elems $ Map.take 5 zipMap        -- Extract selected logs
+    let extractedLogs = Map.elems $ Map.take numberOfFiles zipMap        -- Extract selected logs
     return extractedLogs
 
 -- | Get filepath to pub folder depending on the operating system
@@ -116,8 +115,8 @@ getPathOnLinux = do
     return path2Pub
 
 -- | Extract log file from Daedalus/Logs/pub
-extractLogsFromDirectory :: IO [LBS.ByteString]
-extractLogsFromDirectory = do
+extractLogsFromDirectory :: Int -> IO [LBS.ByteString]
+extractLogsFromDirectory numberOfFiles = do
     path2Pub <- getFilePath2Pub
     putStrLn $ "Diagnosis is running on " <> os
     putStrLn $ "Path to pub folder is: " <> path2Pub
@@ -126,19 +125,20 @@ extractLogsFromDirectory = do
     then handleError $ DirectoryNotFound path2Pub
     else do
       fileList <- listDirectory path2Pub
-      let logFiles = map (\file -> path2Pub ++ file) (take 5 $ filter (/= ".DS_Store") fileList)
+      let logFiles = map (\file -> path2Pub ++ file) (take numberOfFiles $ filter (/= ".DS_Store") fileList)
       mapM LBS.readFile logFiles
 
 main :: IO ()
 main = do
     analysisEnv <- setupAnalysisEnv knowledgeBaseFile  -- Read & create knowledge base
     args  <- getArgs
+    let numberOfFiles = 5
     extractedLogs   <- case args of                    -- Extract logs depending on the args
-        (logFilePath: _) -> extractLogsFromZip logFilePath
-        _                -> extractLogsFromDirectory
+        (logFilePath: _) -> extractLogsFromZip numberOfFiles logFilePath
+        _                -> extractLogsFromDirectory numberOfFiles
     putStrLn "Running analysis on logs"
     currTime <- getCurrentTime
-    let analysisResult = execState (extractIssuesFromLogs extractedLogs) analysisEnv  -- Parse log files
+    let analysisResult = extractIssuesFromLogs extractedLogs analysisEnv  -- Parse log files
         resultFilename = "result-" <> showGregorian (utctDay currTime) <> ".html"
     createDirectoryIfMissing True "./result"
     writeFile ("./result/" <> resultFilename) $ renderHtml $ generateReport2Html (sort $ Map.toList analysisResult)

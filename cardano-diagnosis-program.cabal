@@ -74,7 +74,6 @@ executable diagnosis
     , cardano-diagnosis-program
     , containers
     , directory
-    , mtl
     , safe-exceptions
     , text
     , time
