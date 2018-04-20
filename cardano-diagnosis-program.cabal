@@ -41,7 +41,6 @@ library
     , bytestring
     , containers
     , directory
-    , mtl
     , safe-exceptions
     , text
   exposed-modules:
