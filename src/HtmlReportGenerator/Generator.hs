@@ -104,6 +104,7 @@ generateErrorReport e = do
     main ! A.class_ "container" $
       renderHelpSection
 
+-- | Render header for error message
 renderErrorHeader :: ExtractorException -> Html
 renderErrorHeader e =
   div ! A.class_ "jumbotron bg-warning" $

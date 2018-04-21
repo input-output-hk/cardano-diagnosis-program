@@ -15,7 +15,7 @@ import           Types                       (ErrorCode (..))
 -- | Render solution section of the generated report
 --
 -- This is temporal workaround for rendering solutions
---this will be deprecated in the future version.
+-- this will be deprecated in the future version.
 renderSolution :: ErrorCode -> LT.Text -> Html
 renderSolution TimeSync      t = renderTimeSync t
 renderSolution StaleLockFile t = renderStaleLockFile t

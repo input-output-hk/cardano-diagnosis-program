@@ -32,10 +32,10 @@ data ErrorCode
 
 -- | Record identifying the issue
 data Knowledge = Knowledge
-  {  kErrorText :: !LT.Text    -- ^ Text used for matching error lines
-  ,  kErrorCode :: !ErrorCode  -- ^ Identity for error code
-  ,  kProblem   :: !LT.Text    -- ^ Text describing what is the problem
-  ,  kSolution  :: !LT.Text    -- ^ Text describing how to solve the issue
+  {  kErrorText :: !LT.Text   -- ^ Text used for matching error lines
+  ,  kErrorCode :: !ErrorCode -- ^ Identity for error code
+  ,  kProblem   :: !LT.Text   -- ^ Text describing what is the problem
+  ,  kSolution  :: !LT.Text   -- ^ Text describing how to solve the issue
   }
 
 -- | Map used to collect error lines
