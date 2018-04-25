@@ -2,6 +2,12 @@
 
 This is a diagnosis program for Cardano-SL. The goal of this program is to produce an diagnosis program for Cardano-SL that can be easily used by the end user.
 
+## Update
+
+I'm first going to integrate this feature into Daedalus reporting server. 
+This is because releasing this as an executable would mean there's going to be another software that can cause bugs (In Japan, we call this mummy scavengers become mummies) and that is really bad.
+
+We'll most likely introduce some kind of debugging functionality to Daedalus. Will keep you up-to-date.
 ## What is this for
 
 This is for anyone who has issues with their Daedalus wallet and want to run diagnosis on it.
